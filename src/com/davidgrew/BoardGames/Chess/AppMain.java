@@ -6,7 +6,6 @@
 package com.davidgrew.BoardGames.Chess;
 
 import java.util.Scanner;
-import jdk.internal.org.objectweb.asm.commons.Method;
 
 /**
  *
