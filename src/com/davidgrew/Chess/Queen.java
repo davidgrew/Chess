@@ -3,23 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.davidgrew.BoardGames.Chess;
+package com.davidgrew.Chess;
 
 /**
  *
  * @author David
  */
-public class Bishop extends ChessPiece {
+public class Queen extends ChessPiece {
     
-    Bishop(String colour) {
-        this.chessPieceType = "Bishop";
+    public Queen(String colour) {
+        this.chessPieceType = "Queen";
         if(colour.equals("black")) {
             this.colour = "black";
-            this.shortName = "BB";
+            this.shortName = "BQ";
         }
         else {
             this.colour = "white";
-            this.shortName = "WB";
+            this.shortName = "WQ";
         }
     }
 }

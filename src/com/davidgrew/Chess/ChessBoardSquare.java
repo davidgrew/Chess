@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.davidgrew.BoardGames.Chess;
+package com.davidgrew.Chess;
 
 /**
  *
@@ -13,8 +13,8 @@ public class ChessBoardSquare {
     private String squareName;
     int xAxisLocation;
     int yAxisLocation;
-    Boolean isSquareEmpty;
-    ChessPiece currentPiece;
+    public Boolean isSquareEmpty;
+    public ChessPiece currentPiece;
     
     void initialiseSquare(int y, int x) {
         
@@ -69,6 +69,23 @@ public class ChessBoardSquare {
         else {
             isSquareEmpty = true;
         }
+    }
+    
+    void initialiseSquare(int y, int x, ChessPiece piece) {
+        
+        this.xAxisLocation = x;
+        this.yAxisLocation = y;
+        Character yAsChar = (char) (y+65);
+        Character xAsChar = (char) (x+49);
+        squareName = yAsChar.toString() + xAsChar.toString();
+        
+        if(x == 3 && y == 3){
+            this.currentPiece = piece;
+            this.isSquareEmpty = false;
+        }
+        else
+            this.isSquareEmpty = true;
+        
     }
     
     public String getSquareName() {

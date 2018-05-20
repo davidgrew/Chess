@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.davidgrew.BoardGames.Chess;
+package com.davidgrew.Chess;
 
 /**
  *
@@ -11,7 +11,7 @@ package com.davidgrew.BoardGames.Chess;
  */
 public class Horse extends ChessPiece {
     
-    Horse(String colour) {
+    public Horse(String colour) {
         this.chessPieceType = "Horse";
         if(colour.equals("black")) {
             this.colour = "black";

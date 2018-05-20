@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.davidgrew.BoardGames.Chess;
+package com.davidgrew.Chess;
 
 import java.lang.reflect.Method;
 
@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
  */
 public class Castle extends ChessPiece {
     
-    Castle(String colour) {
+    public Castle(String colour) {
         this.chessPieceType = "Castle";
         if(colour.equals("black")) {
             this.colour = "black";

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.davidgrew.BoardGames.Chess;
+package com.davidgrew.Chess;
 
 /**
  *
@@ -18,4 +18,9 @@ public class ChessPiece {
         return true;
     }
 
+    public String getChessPieceType() {
+        return this.chessPieceType;
+    }
+    
 }
+
