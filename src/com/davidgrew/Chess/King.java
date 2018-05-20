@@ -22,4 +22,17 @@ public class King extends ChessPiece {
             this.shortName = "WK";
         }
     }
+    
+    public Boolean isMoveValid(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, ChessPlayer currentPlayer) {
+
+        if (!futureSquare.isSquareEmpty && futureSquare.currentPiece.colour.equals(currentPlayer.getPieceColour()))
+            return false; 
+    
+        int distanceMovedXAxis = currentSquare.xAxisLocation - futureSquare.xAxisLocation;
+        int distanceMovedYAxis = currentSquare.yAxisLocation - futureSquare.yAxisLocation;
+        int unsignedDistanceMovedXAxis = distanceMovedXAxis < 0 ? distanceMovedXAxis * -1 : distanceMovedXAxis;
+        int unsignedDistanceMovedYAxis = distanceMovedYAxis < 0 ? distanceMovedYAxis * -1 : distanceMovedYAxis;
+
+        return (unsignedDistanceMovedXAxis < 2 && unsignedDistanceMovedYAxis < 2 && (unsignedDistanceMovedXAxis + unsignedDistanceMovedYAxis) > 0);  
+    }
 }
