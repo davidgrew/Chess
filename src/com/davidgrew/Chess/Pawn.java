@@ -24,10 +24,7 @@ public class Pawn extends ChessPiece {
     }
     
     @Override
-    public Boolean isMoveValid(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, ChessPlayer currentPlayer) {
-        
-        if (!futureSquare.isSquareEmpty && futureSquare.currentPiece.colour.equals(currentPlayer.getPieceColour()))
-            return false;     
+    public Boolean isMoveValid(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, ChessPlayer currentPlayer) {  
         
         int distanceMovedXAxis = currentSquare.xAxisLocation - futureSquare.xAxisLocation;
         int distanceMovedYAxis = currentSquare.yAxisLocation - futureSquare.yAxisLocation;

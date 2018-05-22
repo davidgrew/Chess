@@ -24,8 +24,11 @@ public class ChessMove {
     }
     
     public Boolean isMoveValid() {
-    if((currentSquare.isSquareEmpty == false && currentSquare.currentPiece.colour.equals(currentPlayer.getPieceColour())))
-        return currentSquare.currentPiece.isMoveValid(board, currentSquare, futureSquare, currentPlayer);
+    if((!currentSquare.isSquareEmpty && currentSquare.currentPiece.colour.equals(currentPlayer.getPieceColour())))
+        if (!futureSquare.isSquareEmpty && futureSquare.currentPiece.colour.equals(currentPlayer.getPieceColour()))
+            return false; 
+        else 
+            return currentSquare.currentPiece.isMoveValid(board, currentSquare, futureSquare, currentPlayer);
     else
         return false;
     }

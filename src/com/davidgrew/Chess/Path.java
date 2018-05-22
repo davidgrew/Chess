@@ -7,41 +7,61 @@ package com.davidgrew.Chess;
 
 /**
  *
- * @author David
+ * @author davidgrew
  */
-public class Queen extends ChessPiece {
-    
-    public Queen(String colour) {
-        this.chessPieceType = "Queen";
-        if(colour.equals("black")) {
-            this.colour = "black";
-            this.shortName = "BQ";
-        }
-        else {
-            this.colour = "white";
-            this.shortName = "WQ";
-        }
-    }
-    
-    @Override
-    public Boolean isMoveValid(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, ChessPlayer currentPlayer) {
-    
-        Movement newMovement = new Movement(currentSquare, futureSquare);
-        String movementType = newMovement.getMovementType();
+public class Path {
         
-        if(movementType.equals("diagonal") || movementType.equals("horizontal") || movementType.equals("vertical"))
-            return new Path().isPathClear(board, currentSquare, futureSquare, newMovement);            
-        else
-            return false;
+    public boolean isPathClear(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, Movement movement) {
+        
+        int xAxisCounter = currentSquare.getXAxisLocation();
+        int yAxisCounter = currentSquare.getYAxisLocation();
+        boolean endReached = false;
+          
+        while (!endReached) {
+            switch (movement.getMovementDirection()) {
+                case "left":
+                    xAxisCounter--;
+                    break;
+                case "leftdown":
+                    xAxisCounter--;
+                    yAxisCounter--;
+                    break;
+                case "leftup":
+                    xAxisCounter--;
+                    yAxisCounter++;
+                    break;
+                case "down":
+                    yAxisCounter--;
+                    break;
+                case "up":
+                    yAxisCounter++;
+                    break;
+                case "right":
+                    xAxisCounter++;
+                    break;
+                case "rightdown":
+                    xAxisCounter++;
+                    yAxisCounter--;
+                    break;
+                case "rightup":
+                    xAxisCounter++;
+                    yAxisCounter++;
+                    break;
+            }
+            if (xAxisCounter == futureSquare.getXAxisLocation() && yAxisCounter == futureSquare.getYAxisLocation())
+                endReached = true;
+            else if (!board.board[yAxisCounter][xAxisCounter].isSquareEmpty)
+                return false;
+        }
+        return true;
     }
 }
-    
         
 //        int distanceMovedXAxis = currentSquare.xAxisLocation - futureSquare.xAxisLocation;
 //        int distanceMovedYAxis = currentSquare.yAxisLocation - futureSquare.yAxisLocation;
 //        int unsignedDistanceMovedXAxis = distanceMovedXAxis < 0 ? distanceMovedXAxis * -1 : distanceMovedXAxis;
-//        int unsignedDistanceMovedYAxis = distanceMovedYAxis < 0 ? distanceMovedYAxis * -1 : distanceMovedYAxis;    
-        
+//        int unsignedDistanceMovedYAxis = distanceMovedYAxis < 0 ? distanceMovedYAxis * -1 : distanceMovedYAxis;
+//        
 //        if (unsignedDistanceMovedXAxis == unsignedDistanceMovedYAxis) {
 //            int yAxisCounter = distanceMovedYAxis < 0 ? currentSquare.yAxisLocation+1 : currentSquare.yAxisLocation-1;
 //            int xAxisCounter = distanceMovedXAxis < 0 ? currentSquare.xAxisLocation+1 : currentSquare.xAxisLocation-1;
@@ -73,5 +93,9 @@ public class Queen extends ChessPiece {
 //        }
 //        else
 //            return false;
+
+    
+//    public ChessPiece nextPiece(ChessBoardSquare rootSquare) {
+//        
 //    }
 
