@@ -20,30 +20,12 @@ public class AppMain {
         
         System.out.print("\033[H\033[2J");
 
-        ChessPlayer player1 = new ChessPlayer();
-        ChessPlayer player2 = new ChessPlayer();
+        ChessPlayer player1 = new AppMain().getPlayerFromUser(1);
+        ChessPlayer player2 = new AppMain().getPlayerFromUser(2);
+        Boolean playerOneWhite = new AppMain().getPieceColourFromUser().equalsIgnoreCase("white");
+        player1.updatePieceColour(playerOneWhite ? "white" : "black");
+        player2.updatePieceColour(playerOneWhite ? "black" : "white");
 
-        for(int i = 1; i < 3; i++) {
-            System.out.println("Player "+i+"'s name please");
-            String playerName = new Scanner(System.in).next();
-            if (i == 1){
-                String playerOneColour;
-                do {
-                    System.out.println("Player One colour please - black or white");
-                    playerOneColour = new Scanner(System.in).next();
-                } while (!playerOneColour.equalsIgnoreCase("white") && !playerOneColour.equals("black"));
-                player1.updatePlayerName(playerName);
-                player1.updatePieceColour(playerOneColour);
-            }
-            else {
-                player2.updatePlayerName(playerName);
-                if (player1.getPieceColour().equalsIgnoreCase("white")) 
-                    player2.updatePieceColour("black");
-                else
-                    player2.updatePieceColour("white");
-            }
-
-        }
         ChessGame game = new ChessGame(player1, player2);
 
         ChessBoard board = new ChessBoard();
@@ -53,26 +35,8 @@ public class AppMain {
         do {
             System.out.println("\n"+game.getPlayersTurn().getPlayerName()+"'s turn\n");
 
-            ChessBoardSquare currentSquare = null;
-            ChessBoardSquare futureSquare = null;
-            Boolean isSquareValid = false;
-
-            for (int i = 0; i < 2; i++) {
-                if (i == 0)
-                    System.out.println("Select piece to move (e.g. C4)");
-                else
-                    System.out.println("Select square to move to (e.g. D4)");
-                do {
-                    String squareName = new Scanner(System.in).next();
-                    isSquareValid = board.isSquareValid(squareName);
-                    if (isSquareValid && i == 0)
-                        currentSquare = board.getSquare(squareName);
-                    else if (isSquareValid && i == 1)
-                        futureSquare = board.getSquare(squareName);
-                    else
-                        System.out.println("not a valid square");
-                } while (isSquareValid == false);
-            }
+            ChessBoardSquare currentSquare = new AppMain().getSquareFromUser(board, "Select piece to move (e.g. C4)");
+            ChessBoardSquare futureSquare = new AppMain().getSquareFromUser(board, "Select square to move to (e.g. D4)");
 
             if(currentSquare == null || futureSquare == null)
                 break;
@@ -88,8 +52,39 @@ public class AppMain {
                     System.out.println("move not valid");
                 }
             }
-
         } while(game.getWinner() == null);  
+    }
+
+    private ChessPlayer getPlayerFromUser(int playerNumber) {
+        
+        System.out.println("Player "+playerNumber+"'s name please");
+        String playerName = new Scanner(System.in).next();
+        return new ChessPlayer(playerName);
+    }
+    
+    private String getPieceColourFromUser() {
+        String playerOneColour;
+            do {
+                System.out.println("Player One colour please - black or white");
+                playerOneColour = new Scanner(System.in).next();
+            } while (!playerOneColour.equalsIgnoreCase("white") && !playerOneColour.equals("black"));
+        return playerOneColour;
+    }
+    
+    private ChessBoardSquare getSquareFromUser(ChessBoard board, String textToPrint) {
+        System.out.println(textToPrint);
+        Boolean validSquare;
+        
+        do {
+            String squareName = new Scanner(System.in).next();
+            validSquare = board.isSquareValid(squareName);
+            if (validSquare)
+                return board.getSquare(squareName);
+            else
+                System.out.println("not a valid square");
+        } while (!validSquare);
+        
+        return null;
     }
     
 }

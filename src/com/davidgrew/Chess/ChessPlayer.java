@@ -19,6 +19,11 @@ public class ChessPlayer {
         pieceColourIsWhite = true;
     }
     
+    public ChessPlayer(String name) {
+        this.name = name;
+        this.pieceColourIsWhite = true;
+    }
+    
     public ChessPlayer(String name, String colour) {
         this.name = name;
         if (colour.equals("white"))
