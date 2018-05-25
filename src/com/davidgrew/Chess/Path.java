@@ -55,8 +55,58 @@ public class Path {
         }
         return true;
     }
-}
+ 
+    public ChessPiece nextPiece(ChessBoard board, ChessBoardSquare rootSquare, Direction direction) {
+        int xAxisCounter = rootSquare.getXAxisLocation();
+        int yAxisCounter = rootSquare.getYAxisLocation();
+        int xAxisMax = direction.getMaxXAxisLocation();
+        int yAxisMax = direction.getMaxYAxisLocation();
         
+        if(xAxisCounter == xAxisMax || yAxisCounter == yAxisMax)
+            return null;
+        
+        boolean edgeReached = false;
+        
+        while (!edgeReached) {
+            switch (direction.getDirection()) {
+                case "left":
+                    xAxisCounter--;
+                    break;
+                case "leftdown":
+                    xAxisCounter--;
+                    yAxisCounter--;
+                    break;
+                case "leftup":
+                    xAxisCounter--;
+                    yAxisCounter++;
+                    break;
+                case "down":
+                    yAxisCounter--;
+                    break;
+                case "up":
+                    yAxisCounter++;
+                    break;
+                case "right":
+                    xAxisCounter++;
+                    break;
+                case "rightdown":
+                    xAxisCounter++;
+                    yAxisCounter--;
+                    break;
+                case "rightup":
+                    xAxisCounter++;
+                    yAxisCounter++;
+                    break;
+            }
+            if(!board.board[yAxisCounter][xAxisCounter].isSquareEmpty)
+                return board.board[yAxisCounter][xAxisCounter].currentPiece;
+            else if (xAxisCounter == xAxisMax || yAxisCounter == yAxisMax)
+                return null;
+        }
+        return null;
+    }
+}
+
 //        int distanceMovedXAxis = currentSquare.xAxisLocation - futureSquare.xAxisLocation;
 //        int distanceMovedYAxis = currentSquare.yAxisLocation - futureSquare.yAxisLocation;
 //        int unsignedDistanceMovedXAxis = distanceMovedXAxis < 0 ? distanceMovedXAxis * -1 : distanceMovedXAxis;
@@ -95,7 +145,5 @@ public class Path {
 //            return false;
 
     
-//    public ChessPiece nextPiece(ChessBoardSquare rootSquare) {
-//        
-//    }
+
 

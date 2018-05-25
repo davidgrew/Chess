@@ -27,9 +27,14 @@ public class King extends ChessPiece {
     public Boolean isMoveValid(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, ChessPlayer currentPlayer) {
     
         if(new Movement(currentSquare, futureSquare).getMovementDistance() == 1) {
-            return true;
+            
         }  
         else
             return false;
+    }
+    
+    public Boolean isKingInCheck(ChessBoard board, ChessBoardSquare rootSquare) {
+        ChessPiece nextPieceUp = new Path().nextPiece(board, rootSquare, new Direction("up"));
+        if (!nextPieceUp.getChessPieceColour().equals(this.colour) && nextPieceUp.getChessPieceType()
     }
 }

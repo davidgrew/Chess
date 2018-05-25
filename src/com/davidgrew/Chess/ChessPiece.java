@@ -10,9 +10,9 @@ package com.davidgrew.Chess;
  * @author David
  */
 public class ChessPiece {
-    String chessPieceType;
-    String shortName;
-    String colour;
+    private String chessPieceType;
+    private String shortName;
+    private String colour;
 
     public Boolean isMoveValid(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, ChessPlayer currentPlayer) {
         return true;
@@ -22,5 +22,8 @@ public class ChessPiece {
         return this.chessPieceType;
     }
     
+    public String getChessPieceColour() {
+        return this.colour;
+    }
 }
 
