@@ -23,18 +23,18 @@ public class King extends ChessPiece {
         }
     }
     
-    @Override
-    public Boolean isMoveValid(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, ChessPlayer currentPlayer) {
-    
-        if(new Movement(currentSquare, futureSquare).getMovementDistance() == 1) {
-            
-        }  
-        else
-            return false;
-    }
-    
-    public Boolean isKingInCheck(ChessBoard board, ChessBoardSquare rootSquare) {
-        ChessPiece nextPieceUp = new Path().nextPiece(board, rootSquare, new Direction("up"));
-        if (!nextPieceUp.getChessPieceColour().equals(this.colour) && nextPieceUp.getChessPieceType()
-    }
+//    @Override
+//    public Boolean isMoveValid(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, ChessPlayer currentPlayer) {
+//    
+//        if(new Movement(currentSquare, futureSquare).getMovementDistance() == 1) {
+//            
+//        }  
+//        else
+//            return false;
+//    }
+//    
+//    public Boolean isKingInCheck(ChessBoard board, ChessBoardSquare rootSquare) {
+//        ChessPiece nextPieceUp = new Path().nextPiece(board, rootSquare, new Direction("up"));
+//        if (!nextPieceUp.getChessPieceColour().equals(this.colour) && nextPieceUp.getChessPieceType()
+//    }
 }

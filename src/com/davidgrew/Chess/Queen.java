@@ -24,13 +24,12 @@ public class Queen extends ChessPiece {
     }
     
     @Override
-    public Boolean isMoveValid(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, ChessPlayer currentPlayer) {
+    public Boolean isMoveValid(ChessBoard board, Movement newMovement) {
     
-        Movement newMovement = new Movement(currentSquare, futureSquare);
         String movementType = newMovement.getMovementType();
         
         if(movementType.equals("diagonal") || movementType.equals("horizontal") || movementType.equals("vertical"))
-            return new Path().isPathClear(board, currentSquare, futureSquare, newMovement);            
+            return board.isPathClear(newMovement);            
         else
             return false;
     }

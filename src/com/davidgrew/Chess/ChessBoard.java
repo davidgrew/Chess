@@ -5,6 +5,9 @@
  */
 package com.davidgrew.Chess;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author David
@@ -83,5 +86,59 @@ public class ChessBoard {
             }
         }
         return null;
+    }
+    
+    public boolean isPathClear(Movement movement) {
+        
+        Map<String, Integer> axisCounters = new HashMap<>();
+        axisCounters.put("x", movement.getCurrentSquare().getXAxisLocation());
+        axisCounters.put("y", movement.getCurrentSquare().getYAxisLocation());
+        boolean endReached = false;
+          
+        while (!endReached) {
+            
+        axisCounters = ChessBoard.incrementAxisCounters(movement.getMovementDirection(), axisCounters);
+           
+            if (axisCounters.get("x") == movement.getFutureSquare().getXAxisLocation() && axisCounters.get("y") == movement.getFutureSquare().getYAxisLocation())
+                endReached = true;
+            else if (!board[axisCounters.get("y")][axisCounters.get("x")].isSquareEmpty)
+                return false;
+        }
+        return true;
+    }
+    
+    private static Map<String, Integer> incrementAxisCounters(Direction direction, Map<String, Integer> axisCounters) {
+        
+        switch (direction.getDirection()) {
+                case "left":
+                    axisCounters.put("x", (axisCounters.get("x") - 1));
+                    break;
+                case "leftdown":
+                    axisCounters.put("x", (axisCounters.get("x") - 1));
+                    axisCounters.put("y", (axisCounters.get("y") - 1));
+                    break;
+                case "leftup":
+                    axisCounters.put("x", (axisCounters.get("x") - 1));
+                    axisCounters.put("y", (axisCounters.get("y") + 1));
+                    break;
+                case "down":
+                    axisCounters.put("y", (axisCounters.get("y") - 1));
+                    break;
+                case "up":
+                    axisCounters.put("y", (axisCounters.get("y") + 1));
+                    break;
+                case "right":
+                    axisCounters.put("x", (axisCounters.get("x") + 1));
+                    break;
+                case "rightdown":
+                    axisCounters.put("x", (axisCounters.get("x") + 1));
+                    axisCounters.put("y", (axisCounters.get("y") - 1));
+                    break;
+                case "rightup":
+                    axisCounters.put("x", (axisCounters.get("x") + 1));
+                    axisCounters.put("y", (axisCounters.get("y") + 1));
+                    break;
+        }
+        return axisCounters;
     }
 }

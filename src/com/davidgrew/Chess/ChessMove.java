@@ -11,12 +11,14 @@ package com.davidgrew.Chess;
  */
 public class ChessMove {
     
+    public Movement movement;
     public ChessBoard board;
     public ChessBoardSquare currentSquare;
     public ChessBoardSquare futureSquare;
     private ChessPlayer currentPlayer;
     
     public ChessMove(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, ChessPlayer currentPlayer) {
+        this.movement = new Movement(currentSquare, futureSquare);
         this.currentSquare = currentSquare;
         this.futureSquare = futureSquare;
         this.currentPlayer = currentPlayer;
@@ -28,7 +30,7 @@ public class ChessMove {
         if (!futureSquare.isSquareEmpty && futureSquare.currentPiece.colour.equals(currentPlayer.getPieceColour()))
             return false; 
         else 
-            return currentSquare.currentPiece.isMoveValid(board, currentSquare, futureSquare, currentPlayer);
+            return currentSquare.currentPiece.isMoveValid(board, movement);
     else
         return false;
     }

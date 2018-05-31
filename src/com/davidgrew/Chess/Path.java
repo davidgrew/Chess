@@ -5,107 +5,110 @@
  */
 package com.davidgrew.Chess;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author davidgrew
  */
 public class Path {
         
-    public boolean isPathClear(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, Movement movement) {
+    public boolean isPathClear(ChessBoard board, Movement movement) {
         
-        int xAxisCounter = currentSquare.getXAxisLocation();
-        int yAxisCounter = currentSquare.getYAxisLocation();
+        Map<String, Integer> axisCounters = new HashMap<>();
+        axisCounters.put("x", movement.getCurrentSquare().getXAxisLocation());
+        axisCounters.put("y", movement.getCurrentSquare().getYAxisLocation());
         boolean endReached = false;
           
         while (!endReached) {
-            switch (movement.getMovementDirection()) {
-                case "left":
-                    xAxisCounter--;
-                    break;
-                case "leftdown":
-                    xAxisCounter--;
-                    yAxisCounter--;
-                    break;
-                case "leftup":
-                    xAxisCounter--;
-                    yAxisCounter++;
-                    break;
-                case "down":
-                    yAxisCounter--;
-                    break;
-                case "up":
-                    yAxisCounter++;
-                    break;
-                case "right":
-                    xAxisCounter++;
-                    break;
-                case "rightdown":
-                    xAxisCounter++;
-                    yAxisCounter--;
-                    break;
-                case "rightup":
-                    xAxisCounter++;
-                    yAxisCounter++;
-                    break;
-            }
-            if (xAxisCounter == futureSquare.getXAxisLocation() && yAxisCounter == futureSquare.getYAxisLocation())
+            
+        axisCounters = Path.incrementAxisCounters(movement.getMovementDirection(), axisCounters);
+           
+            if (axisCounters.get("x") == movement.getFutureSquare().getXAxisLocation() && axisCounters.get("y") == movement.getFutureSquare().getYAxisLocation())
                 endReached = true;
-            else if (!board.board[yAxisCounter][xAxisCounter].isSquareEmpty)
+            else if (!board.board[axisCounters.get("y")][axisCounters.get("x")].isSquareEmpty)
                 return false;
         }
         return true;
     }
  
     public ChessPiece nextPiece(ChessBoard board, ChessBoardSquare rootSquare, Direction direction) {
-        int xAxisCounter = rootSquare.getXAxisLocation();
-        int yAxisCounter = rootSquare.getYAxisLocation();
+        
+        Map<String, Integer> axisCounters = new HashMap<>();
+        axisCounters.put("x", rootSquare.getXAxisLocation());
+        axisCounters.put("y", rootSquare.getYAxisLocation());
         int xAxisMax = direction.getMaxXAxisLocation();
         int yAxisMax = direction.getMaxYAxisLocation();
         
-        if(xAxisCounter == xAxisMax || yAxisCounter == yAxisMax)
+        if(axisCounters.get("x") == xAxisMax || axisCounters.get("y") == yAxisMax)
             return null;
         
         boolean edgeReached = false;
         
         while (!edgeReached) {
-            switch (direction.getDirection()) {
-                case "left":
-                    xAxisCounter--;
-                    break;
-                case "leftdown":
-                    xAxisCounter--;
-                    yAxisCounter--;
-                    break;
-                case "leftup":
-                    xAxisCounter--;
-                    yAxisCounter++;
-                    break;
-                case "down":
-                    yAxisCounter--;
-                    break;
-                case "up":
-                    yAxisCounter++;
-                    break;
-                case "right":
-                    xAxisCounter++;
-                    break;
-                case "rightdown":
-                    xAxisCounter++;
-                    yAxisCounter--;
-                    break;
-                case "rightup":
-                    xAxisCounter++;
-                    yAxisCounter++;
-                    break;
-            }
-            if(!board.board[yAxisCounter][xAxisCounter].isSquareEmpty)
-                return board.board[yAxisCounter][xAxisCounter].currentPiece;
-            else if (xAxisCounter == xAxisMax || yAxisCounter == yAxisMax)
+            
+            axisCounters = Path.incrementAxisCounters(direction, axisCounters);
+            
+            if(!board.board[axisCounters.get("y")][axisCounters.get("x")].isSquareEmpty)
+                return board.board[axisCounters.get("y")][axisCounters.get("x")].currentPiece;
+            else if (axisCounters.get("y") == xAxisMax || axisCounters.get("x") == yAxisMax)
                 return null;
         }
         return null;
     }
+    
+    private static Map<String, Integer> incrementAxisCounters(Direction direction, Map<String, Integer> axisCounters) {
+        
+        switch (direction.getDirection()) {
+                case "left":
+                    axisCounters.put("x", (axisCounters.get("x") - 1));
+                    break;
+                case "leftdown":
+                    axisCounters.put("x", (axisCounters.get("x") - 1));
+                    axisCounters.put("y", (axisCounters.get("y") - 1));
+                    break;
+                case "leftup":
+                    axisCounters.put("x", (axisCounters.get("x") - 1));
+                    axisCounters.put("y", (axisCounters.get("y") + 1));
+                    break;
+                case "down":
+                    axisCounters.put("y", (axisCounters.get("y") - 1));
+                    break;
+                case "up":
+                    axisCounters.put("y", (axisCounters.get("y") + 1));
+                    break;
+                case "right":
+                    axisCounters.put("x", (axisCounters.get("x") + 1));
+                    break;
+                case "rightdown":
+                    axisCounters.put("x", (axisCounters.get("x") + 1));
+                    axisCounters.put("y", (axisCounters.get("y") - 1));
+                    break;
+                case "rightup":
+                    axisCounters.put("x", (axisCounters.get("x") + 1));
+                    axisCounters.put("y", (axisCounters.get("y") + 1));
+                    break;
+        }
+        return axisCounters;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //        int distanceMovedXAxis = currentSquare.xAxisLocation - futureSquare.xAxisLocation;
 //        int distanceMovedYAxis = currentSquare.yAxisLocation - futureSquare.yAxisLocation;

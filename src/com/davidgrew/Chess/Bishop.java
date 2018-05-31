@@ -24,13 +24,12 @@ public class Bishop extends ChessPiece {
     }
     
     @Override
-    public Boolean isMoveValid(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, ChessPlayer currentPlayer) {
-    
-        Movement newMovement = new Movement(currentSquare, futureSquare);
+    public Boolean isMoveValid(ChessBoard board, Movement newMovement) {
+        
         String movementType = newMovement.getMovementType();
         
         if (movementType.equals("diagonal"))
-            return new Path().isPathClear(board, currentSquare, futureSquare, newMovement); 
+            return board.isPathClear(newMovement); 
         else 
             return false;
     }

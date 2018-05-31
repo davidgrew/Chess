@@ -11,56 +11,60 @@ package com.davidgrew.Chess;
  */
 public class Movement {
     
+    private ChessBoardSquare currentSquare;
+    private ChessBoardSquare futureSquare;
     private int movementDistance;
     private String movementType;
-    private String movementDirection;
+    private Direction movementDirection;
     
     public Movement(ChessBoardSquare currentSquare, ChessBoardSquare futureSquare) {
         
-        int distanceMovedXAxis = currentSquare.xAxisLocation - futureSquare.xAxisLocation;
-        int distanceMovedYAxis = currentSquare.yAxisLocation - futureSquare.yAxisLocation;
+        this.currentSquare = currentSquare;
+        this.futureSquare = futureSquare;
+        int distanceMovedXAxis = currentSquare.getXAxisLocation() - futureSquare.getXAxisLocation();
+        int distanceMovedYAxis = currentSquare.getYAxisLocation() - futureSquare.getYAxisLocation();
         int unsignedDistanceMovedXAxis = distanceMovedXAxis < 0 ? distanceMovedXAxis * -1 : distanceMovedXAxis;
         int unsignedDistanceMovedYAxis = distanceMovedYAxis < 0 ? distanceMovedYAxis * -1 : distanceMovedYAxis;
         
         if (distanceMovedXAxis > 0 && distanceMovedYAxis == 0){
             this.movementDistance = unsignedDistanceMovedXAxis;
             this.movementType = "horizontal";
-            this.movementDirection = "left"; 
+            this.movementDirection = new Direction("left"); 
         }
         else if (distanceMovedXAxis > 0 && distanceMovedYAxis > 0){
             this.movementDistance = unsignedDistanceMovedXAxis;
             this.movementType = "diagonal";
-            this.movementDirection = "leftdown";
+            this.movementDirection = new Direction("leftdown");
         }
         else if (distanceMovedXAxis > 0 && distanceMovedYAxis < 0){
             this.movementDistance = unsignedDistanceMovedXAxis;
             this.movementType = "diagonal";
-            this.movementDirection = "leftup";
+            this.movementDirection = new Direction("leftup");
         }
         else if (distanceMovedXAxis == 0 && distanceMovedYAxis > 0){
             this.movementDistance = unsignedDistanceMovedYAxis;
             this.movementType = "vertical";
-            this.movementDirection = "down";
+            this.movementDirection = new Direction("down");
         }
         else if (distanceMovedXAxis == 0 && distanceMovedYAxis < 0){
             this.movementDistance = unsignedDistanceMovedYAxis;
             this.movementType = "vertical";
-            this.movementDirection = "up";
+            this.movementDirection = new Direction("up");
         }
         else if (distanceMovedXAxis < 0 && distanceMovedYAxis == 0){
             this.movementDistance = unsignedDistanceMovedXAxis;
             this.movementType = "horizontal";
-            this.movementDirection = "right";
+            this.movementDirection = new Direction("right");
         }
         else if (distanceMovedXAxis < 0 && distanceMovedYAxis > 0){
             this.movementDistance = unsignedDistanceMovedXAxis;
             this.movementType = "diagonal";
-            this.movementDirection = "rightdown"; 
+            this.movementDirection = new Direction("rightdown"); 
         }
         else if (distanceMovedXAxis < 0 && distanceMovedYAxis < 0){
             this.movementDistance = unsignedDistanceMovedXAxis;
             this.movementType = "diagonal";
-            this.movementDirection = "rightup"; 
+            this.movementDirection = new Direction("rightup"); 
         }
         else {
             this.movementDistance = 0;
@@ -77,7 +81,15 @@ public class Movement {
         return this.movementType;
     }
     
-    public String getMovementDirection() {
+    public Direction getMovementDirection() {
         return this.movementDirection;
+    }
+    
+    public ChessBoardSquare getCurrentSquare() {
+        return this.currentSquare;
+    }
+    
+    public ChessBoardSquare getFutureSquare() {
+        return this.futureSquare;
     }
 }

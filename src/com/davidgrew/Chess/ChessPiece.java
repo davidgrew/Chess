@@ -10,11 +10,11 @@ package com.davidgrew.Chess;
  * @author David
  */
 public class ChessPiece {
-    private String chessPieceType;
-    private String shortName;
-    private String colour;
+    String chessPieceType;
+    String shortName;
+    String colour;
 
-    public Boolean isMoveValid(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, ChessPlayer currentPlayer) {
+    public Boolean isMoveValid(ChessBoard board, Movement movement) {
         return true;
     }
 

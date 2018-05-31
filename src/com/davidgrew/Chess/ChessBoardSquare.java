@@ -11,12 +11,12 @@ package com.davidgrew.Chess;
  */
 public class ChessBoardSquare {
     private String squareName;
-    int xAxisLocation;
-    int yAxisLocation;
+    private int xAxisLocation;
+    private int yAxisLocation;
     public Boolean isSquareEmpty;
     public ChessPiece currentPiece;
     
-    void initialiseSquare(int y, int x) {
+    public void initialiseSquare(int y, int x) {
         
         this.xAxisLocation = x;
         this.yAxisLocation = y;

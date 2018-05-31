@@ -24,13 +24,10 @@ public class Horse extends ChessPiece {
     }
     
     @Override
-    public Boolean isMoveValid(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, ChessPlayer currentPlayer) {
+    public Boolean isMoveValid(ChessBoard board, Movement newMovement) {       
         
-        if (!futureSquare.isSquareEmpty && futureSquare.currentPiece.colour.equals(currentPlayer.getPieceColour()))
-            return false;         
-        
-        int distanceMovedXAxis = currentSquare.xAxisLocation - futureSquare.xAxisLocation;       
-        int distanceMovedYAxis = currentSquare.yAxisLocation - futureSquare.yAxisLocation;
+        int distanceMovedXAxis = newMovement.getCurrentSquare().getXAxisLocation() - newMovement.getFutureSquare().getXAxisLocation();       
+        int distanceMovedYAxis = newMovement.getCurrentSquare().getYAxisLocation() - newMovement.getFutureSquare().getYAxisLocation();
 
         if ((distanceMovedYAxis == 1 || distanceMovedYAxis == -1) && (distanceMovedXAxis == 2 || distanceMovedXAxis == -2))
             return true;

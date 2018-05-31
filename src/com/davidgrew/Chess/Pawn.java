@@ -24,26 +24,37 @@ public class Pawn extends ChessPiece {
     }
     
     @Override
-    public Boolean isMoveValid(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, ChessPlayer currentPlayer) {  
+    public Boolean isMoveValid(ChessBoard board, Movement newMovement) {  
         
-        int distanceMovedXAxis = currentSquare.xAxisLocation - futureSquare.xAxisLocation;
-        int distanceMovedYAxis = currentSquare.yAxisLocation - futureSquare.yAxisLocation;
-        int unsigneddistanceMovedYAxis = distanceMovedYAxis < 0 ? -distanceMovedYAxis : distanceMovedYAxis;
-   
-        if (distanceMovedXAxis == 0 && unsigneddistanceMovedYAxis == 1) {
-            return futureSquare.isSquareEmpty; 
-        }
-        else if (distanceMovedXAxis == 1 && unsigneddistanceMovedYAxis == 1) {
-            return !futureSquare.isSquareEmpty;
-        }
-        else if (unsigneddistanceMovedYAxis == 2 && distanceMovedXAxis == 0 && (currentSquare.yAxisLocation == 1 || currentSquare.yAxisLocation == 6)) {
-            if (distanceMovedYAxis < 0)
-                return board.board[currentSquare.yAxisLocation+1][currentSquare.xAxisLocation].isSquareEmpty;
+        String movementType = newMovement.getMovementType();
+        String movementDirection = newMovement.getMovementDirection().getDirection();
+        int movementDistance = newMovement.getMovementDistance();
+        
+        if (movementType == "vertical" && movementDistance == 1) {
+            if(colour.equals("white") && movementDirection == "up")
+                return newMovement.getFutureSquare().isSquareEmpty;
+            else if(colour.equals("black") && movementDirection == "down")
+                return newMovement.getFutureSquare().isSquareEmpty;
             else
-                return board.board[futureSquare.yAxisLocation+1][currentSquare.xAxisLocation].isSquareEmpty;
+                return false;
         }
-        else {
+        else if (movementType == "vertical" && movementDistance == 2) {
+            if(colour.equals("white") && newMovement.getCurrentSquare().getYAxisLocation() == 1)
+                return newMovement.getFutureSquare().isSquareEmpty;
+            else if (colour.equals("white") && newMovement.getCurrentSquare().getYAxisLocation() == 1)
+                return newMovement.getFutureSquare().isSquareEmpty;
+            else
+                return false;
+        }
+        else if (movementType == "diagonal" && movementDistance == 1) {
+            if (colour.equals("white") && (movementDirection == "leftup" || movementDirection == "rightup"))
+                return !newMovement.getFutureSquare().isSquareEmpty;
+            else if (colour.equals("black") && (movementDirection == "leftdown" || movementDirection == "rightdown"))
+                return !newMovement.getFutureSquare().isSquareEmpty;
+            else
+                return false;
+        }
+        else
             return false;
-        }
     }
 }
