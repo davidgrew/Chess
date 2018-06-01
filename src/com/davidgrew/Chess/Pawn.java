@@ -11,8 +11,9 @@ package com.davidgrew.Chess;
  */
 public class Pawn extends ChessPiece {
     
-    public Pawn(String colour) {
+    public Pawn(String colour, ChessBoardSquare currentSquare) {
         this.chessPieceType = "Pawn";
+        this.currentSquare = currentSquare;
         if(colour.equals("black")) {
             this.colour = "black";
             this.shortName = "BP";

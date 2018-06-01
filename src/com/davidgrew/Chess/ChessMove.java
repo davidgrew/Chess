@@ -5,6 +5,8 @@
  */
 package com.davidgrew.Chess;
 
+import java.util.Map;
+
 /**
  *
  * @author davidgrew
@@ -35,7 +37,10 @@ public class ChessMove {
         return false;
     }
     
-    public void executeMove() {
+    public void executeMove(Map<String, ChessPiece> activePieces) {
+        King test = (King) activePieces.get("WK");
+        test.KingInCheck(board);
+        currentSquare.currentPiece.updateCurrentSquare(futureSquare);
         futureSquare.currentPiece = currentSquare.currentPiece;
         currentSquare.currentPiece = null;
         currentSquare.isSquareEmpty = true;

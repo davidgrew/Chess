@@ -11,8 +11,9 @@ package com.davidgrew.Chess;
  */
 public class Bishop extends ChessPiece {
     
-    public Bishop(String colour) {
+    public Bishop(String colour, ChessBoardSquare currentSquare) {
         this.chessPieceType = "Bishop";
+        this.currentSquare = currentSquare;
         if(colour.equals("black")) {
             this.colour = "black";
             this.shortName = "BB";

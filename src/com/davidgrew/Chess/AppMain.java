@@ -5,6 +5,8 @@
  */
 package com.davidgrew.Chess;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -27,9 +29,11 @@ public class AppMain {
         player2.updatePieceColour(playerOneWhite ? "black" : "white");
 
         ChessGame game = new ChessGame(player1, player2);
-
+        
+        Map<String, ChessPiece> activePieces = new HashMap<>();
+        
         ChessBoard board = new ChessBoard();
-        board.initialiseChessBoard();
+        board.initialiseChessBoard(activePieces);
         board.printChessBoard();
 
         do {
@@ -43,7 +47,7 @@ public class AppMain {
             else {
                 ChessMove currentMove = new ChessMove(board, currentSquare, futureSquare, game.getPlayersTurn());
                 if (currentMove.isMoveValid()) {
-                    currentMove.executeMove();
+                    currentMove.executeMove(activePieces);
                     game.updatePlayersTurn();
                     currentMove.checkForWinningMove();
                     board.printChessBoard();

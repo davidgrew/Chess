@@ -11,8 +11,9 @@ package com.davidgrew.Chess;
  */
 public class Castle extends ChessPiece {
     
-    public Castle(String colour) {
+    public Castle(String colour, ChessBoardSquare currentSquare) {
         this.chessPieceType = "Castle";
+        this.currentSquare = currentSquare;
         if(colour.equals("black")) {
             this.colour = "black";
             this.shortName = "BC";

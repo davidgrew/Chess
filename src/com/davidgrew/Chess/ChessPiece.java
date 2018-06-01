@@ -13,6 +13,7 @@ public class ChessPiece {
     String chessPieceType;
     String shortName;
     String colour;
+    ChessBoardSquare currentSquare;
 
     public Boolean isMoveValid(ChessBoard board, Movement movement) {
         return true;
@@ -24,6 +25,14 @@ public class ChessPiece {
     
     public String getChessPieceColour() {
         return this.colour;
+    }
+    
+    public ChessBoardSquare getCurrentSquare() {
+        return this.currentSquare;
+    }
+    
+    public void updateCurrentSquare(ChessBoardSquare newSquare) {
+        this.currentSquare = newSquare;
     }
 }
 

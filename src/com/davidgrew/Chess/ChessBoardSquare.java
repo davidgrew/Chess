@@ -16,7 +16,7 @@ public class ChessBoardSquare {
     public Boolean isSquareEmpty;
     public ChessPiece currentPiece;
     
-    public void initialiseSquare(int y, int x) {
+    public ChessPiece initialiseSquare(int y, int x) {
         
         this.xAxisLocation = x;
         this.yAxisLocation = y;
@@ -26,49 +26,50 @@ public class ChessBoardSquare {
         
         if((y == 0 || y == 7) && (x == 0 || x == 7)) {
             if(y == 0)
-                currentPiece = new Castle("white");
+                currentPiece = new Castle("white", this);
             else
-                currentPiece = new Castle("black");
+                currentPiece = new Castle("black", this);
             isSquareEmpty = false;
         }
         else if((y == 0 || y == 7) && (x == 1 || x == 6)) {
             if(y == 0)
-                currentPiece = new Horse("white");
+                currentPiece = new Horse("white", this);
             else
-                currentPiece = new Horse("black");
+                currentPiece = new Horse("black", this);
             isSquareEmpty = false;
         }
         else if((y == 0 || y == 7) && (x == 2 || x == 5)) {
             if(y == 0)
-                currentPiece = new Bishop("white");
+                currentPiece = new Bishop("white", this);
             else
-                currentPiece = new Bishop("black");
+                currentPiece = new Bishop("black", this);
             isSquareEmpty = false;
         }
         else if((y == 0 || y == 7) && x == 3) {
             if(y == 0)
-                currentPiece = new King("white");
+                currentPiece = new King("white", this);
             else
-                currentPiece = new Queen("black");
+                currentPiece = new Queen("black", this);
             isSquareEmpty = false;
         }
         else if((y == 0 || y == 7) && x == 4) {
             if(y == 0)
-                currentPiece = new Queen("white");
+                currentPiece = new Queen("white", this);
             else
-                currentPiece = new King("black");
+                currentPiece = new King("black", this);
             isSquareEmpty = false;
         }
         else if (y == 1 || y == 6) {
             if(y == 1)
-                currentPiece = new Pawn("white");
+                currentPiece = new Pawn("white", this);
             else
-                currentPiece = new Pawn("black");
+                currentPiece = new Pawn("black", this);
             isSquareEmpty = false;
         }
         else {
             isSquareEmpty = true;
         }
+        return this.currentPiece;
     }
     
     void initialiseSquare(int y, int x, ChessPiece piece) {

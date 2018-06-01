@@ -11,8 +11,9 @@ package com.davidgrew.Chess;
  */
 public class King extends ChessPiece {
     
-    public King(String colour) {
+    public King(String colour, ChessBoardSquare currentSquare) {
         this.chessPieceType = "King";
+        this.currentSquare = currentSquare;
         if(colour.equals("black")) {
             this.colour = "black";
             this.shortName = "BK";
@@ -33,8 +34,12 @@ public class King extends ChessPiece {
 //            return false;
 //    }
 //    
-//    public Boolean isKingInCheck(ChessBoard board, ChessBoardSquare rootSquare) {
-//        ChessPiece nextPieceUp = new Path().nextPiece(board, rootSquare, new Direction("up"));
-//        if (!nextPieceUp.getChessPieceColour().equals(this.colour) && nextPieceUp.getChessPieceType()
-//    }
+    public Boolean KingInCheck(ChessBoard board) {
+        NearestPiece[] nearestPieces = board.nearestPiecesAllVectors(currentSquare);
+        for (NearestPiece piece: nearestPieces) {
+            if (piece != null)
+                System.out.println(piece.getPiece().chessPieceType);
+        }
+        return true;
+    }
 }

@@ -11,8 +11,9 @@ package com.davidgrew.Chess;
  */
 public class Queen extends ChessPiece {
     
-    public Queen(String colour) {
+    public Queen(String colour, ChessBoardSquare currentSquare) {
         this.chessPieceType = "Queen";
+        this.currentSquare = currentSquare;
         if(colour.equals("black")) {
             this.colour = "black";
             this.shortName = "BQ";
