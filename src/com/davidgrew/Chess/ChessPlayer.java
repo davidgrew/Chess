@@ -5,6 +5,9 @@
  */
 package com.davidgrew.Chess;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author davidgrew
@@ -13,6 +16,7 @@ public class ChessPlayer {
     
     private String name;
     private Boolean pieceColourIsWhite;
+    private Map<String, ChessPiece> activePieces = new HashMap<>();
     
     public ChessPlayer() {
         name = null;
@@ -52,5 +56,9 @@ public class ChessPlayer {
             this.pieceColourIsWhite = true;
         else
             this.pieceColourIsWhite = false;
+    }
+    
+    public Map<String, ChessPiece> getActivePieces() {
+        return this.activePieces;
     }
 }

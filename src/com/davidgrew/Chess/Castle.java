@@ -22,6 +22,7 @@ public class Castle extends ChessPiece {
             this.colour = "white";
             this.shortName = "WC";
         }
+        this.addUniqueName(this.shortName, currentSquare.getSquareName());
     }
 
     @Override

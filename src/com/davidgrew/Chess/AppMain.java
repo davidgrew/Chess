@@ -30,13 +30,12 @@ public class AppMain {
 
         ChessGame game = new ChessGame(player1, player2);
         
-        Map<String, ChessPiece> activePieces = new HashMap<>();
-        
         ChessBoard board = new ChessBoard();
-        board.initialiseChessBoard(activePieces);
+        board.initialiseChessBoard(player1, player2);
         board.printChessBoard();
 
         do {
+            ChessPlayer currentPlayer = game.getPlayersTurn();
             System.out.println("\n"+game.getPlayersTurn().getPlayerName()+"'s turn\n");
 
             ChessBoardSquare currentSquare = new AppMain().getSquareFromUser(board, "Select piece to move (e.g. C4)");
@@ -45,11 +44,13 @@ public class AppMain {
             if(currentSquare == null || futureSquare == null)
                 break;
             else {
-                ChessMove currentMove = new ChessMove(board, currentSquare, futureSquare, game.getPlayersTurn());
-                if (currentMove.isMoveValid()) {
-                    currentMove.executeMove(activePieces);
+                ChessPlayer oppositionPlayer = currentPlayer == player1 ? player2 : player1;
+                ChessMove currentMove = new ChessMove(board, currentSquare, futureSquare, currentPlayer, oppositionPlayer);
+                if (currentMove.executeMove()) {
+                    if (currentMove.winningMove()) {
+                        game.updateWinner();
+                    }
                     game.updatePlayersTurn();
-                    currentMove.checkForWinningMove();
                     board.printChessBoard();
                 }
                 else {
@@ -57,6 +58,8 @@ public class AppMain {
                 }
             }
         } while(game.getWinner() == null);  
+        
+        System.out.println(game.getWinner().getPlayerName() + " wins!");
     }
 
     private ChessPlayer getPlayerFromUser(int playerNumber) {

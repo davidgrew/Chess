@@ -12,8 +12,13 @@ package com.davidgrew.Chess;
 public class ChessPiece {
     String chessPieceType;
     String shortName;
+    String uniqueName;
     String colour;
     ChessBoardSquare currentSquare;
+    
+    public void addUniqueName(String shortName, String currentSquare) {
+        this.uniqueName = shortName + currentSquare;
+    }
 
     public Boolean isMoveValid(ChessBoard board, Movement movement) {
         return true;
@@ -33,6 +38,14 @@ public class ChessPiece {
     
     public void updateCurrentSquare(ChessBoardSquare newSquare) {
         this.currentSquare = newSquare;
+    }
+    
+    public String getShortName() {
+        return this.shortName;
+    }
+    
+    public String getUniqueName() {
+        return this.uniqueName;
     }
 }
 

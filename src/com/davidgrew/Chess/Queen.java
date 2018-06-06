@@ -22,6 +22,7 @@ public class Queen extends ChessPiece {
             this.colour = "white";
             this.shortName = "WQ";
         }
+        this.addUniqueName(this.shortName, currentSquare.getSquareName());
     }
     
     @Override

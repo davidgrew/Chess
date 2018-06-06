@@ -13,9 +13,9 @@ public class NearestPiece {
     
     private ChessPiece piece;
     private int distance;
-    private String direction;
+    private Direction direction;
     
-    public NearestPiece(ChessPiece piece, int distance, String direction) {
+    public NearestPiece(ChessPiece piece, int distance, Direction direction) {
         this.piece = piece;
         this.distance = distance;
         this.direction = direction;
@@ -29,7 +29,7 @@ public class NearestPiece {
         return this.distance;
     }
     
-    public String getDirection() {
+    public Direction getDirection() {
         return this.direction;
     }
 }

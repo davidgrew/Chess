@@ -31,12 +31,12 @@ public class Movement {
             this.movementType = "horizontal";
             this.movementDirection = new Direction("left"); 
         }
-        else if (distanceMovedXAxis > 0 && distanceMovedYAxis > 0){
+        else if ((distanceMovedXAxis > 0 && distanceMovedYAxis > 0) && (unsignedDistanceMovedXAxis == unsignedDistanceMovedYAxis)){
             this.movementDistance = unsignedDistanceMovedXAxis;
             this.movementType = "diagonal";
             this.movementDirection = new Direction("leftdown");
         }
-        else if (distanceMovedXAxis > 0 && distanceMovedYAxis < 0){
+        else if ((distanceMovedXAxis > 0 && distanceMovedYAxis < 0) && (unsignedDistanceMovedXAxis == unsignedDistanceMovedYAxis)){
             this.movementDistance = unsignedDistanceMovedXAxis;
             this.movementType = "diagonal";
             this.movementDirection = new Direction("leftup");
@@ -56,12 +56,12 @@ public class Movement {
             this.movementType = "horizontal";
             this.movementDirection = new Direction("right");
         }
-        else if (distanceMovedXAxis < 0 && distanceMovedYAxis > 0){
+        else if ((distanceMovedXAxis < 0 && distanceMovedYAxis > 0) && (unsignedDistanceMovedXAxis == unsignedDistanceMovedYAxis)){
             this.movementDistance = unsignedDistanceMovedXAxis;
             this.movementType = "diagonal";
             this.movementDirection = new Direction("rightdown"); 
         }
-        else if (distanceMovedXAxis < 0 && distanceMovedYAxis < 0){
+        else if ((distanceMovedXAxis < 0 && distanceMovedYAxis < 0) && (unsignedDistanceMovedXAxis == unsignedDistanceMovedYAxis)){
             this.movementDistance = unsignedDistanceMovedXAxis;
             this.movementType = "diagonal";
             this.movementDirection = new Direction("rightup"); 
@@ -69,7 +69,7 @@ public class Movement {
         else {
             this.movementDistance = 0;
             this.movementType = "invalid";
-            this.movementType = "invalid";
+            this.movementDirection = new Direction("undefined");
         }
     }
     

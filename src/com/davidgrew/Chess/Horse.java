@@ -22,6 +22,7 @@ public class Horse extends ChessPiece {
             this.colour = "white";
             this.shortName = "WH";
         }
+        this.addUniqueName(this.shortName, currentSquare.getSquareName());
     }
     
     @Override

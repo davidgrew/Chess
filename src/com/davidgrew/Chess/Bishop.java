@@ -22,6 +22,7 @@ public class Bishop extends ChessPiece {
             this.colour = "white";
             this.shortName = "WB";
         }
+        this.addUniqueName(this.shortName, currentSquare.getSquareName());
     }
     
     @Override
