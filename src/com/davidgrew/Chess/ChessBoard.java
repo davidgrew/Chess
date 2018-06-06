@@ -117,47 +117,47 @@ public class ChessBoard {
         return true;
     }
     
-    public ArrayList<NearestPiece> nearestPiecesAllVectors(ChessBoardSquare rootSquare) {
-        
-        ArrayList<NearestPiece> nearestPieceList = new ArrayList<>();
-        int arrayCounter = 0;
-        
-        for (String directions: POSSIBLE_DIRECTIONS) {
-            Direction nextDirection = new Direction(POSSIBLE_DIRECTIONS[arrayCounter]);
-            NearestPiece temp = this.nearestPieceSingleVector(rootSquare, nextDirection);
-            if (temp != null)   
-                nearestPieceList.add(temp);
-            arrayCounter++;
-        }
-        return nearestPieceList;
-    }
-    
-    private NearestPiece nearestPieceSingleVector(ChessBoardSquare rootSquare, Direction direction) {
-        
-        Map<String, Integer> axisCounters = new HashMap<>();
-        axisCounters.put("x", rootSquare.getXAxisLocation());
-        axisCounters.put("y", rootSquare.getYAxisLocation());
-        int xAxisMax = direction.getMaxXAxisLocation();
-        int yAxisMax = direction.getMaxYAxisLocation();
-        
-        if(axisCounters.get("x") == xAxisMax || axisCounters.get("y") == yAxisMax)
-            return null;
-        
-        boolean edgeReached = false;
-        int distance = 0;
-        
-        while (!edgeReached) {
-            
-            axisCounters = ChessBoard.incrementAxisCounters(direction, axisCounters);
-            distance++;
-            
-            if(!board[axisCounters.get("y")][axisCounters.get("x")].isSquareEmpty)
-                return new NearestPiece(board[axisCounters.get("y")][axisCounters.get("x")].currentPiece, distance, direction);
-            else if (axisCounters.get("y") == yAxisMax || axisCounters.get("x") == xAxisMax)
-                return null;
-        }
-        return null;
-    }
+//    public ArrayList<NearestPiece> nearestPiecesAllVectors(ChessBoardSquare rootSquare) {
+//        
+//        ArrayList<NearestPiece> nearestPieceList = new ArrayList<>();
+//        int arrayCounter = 0;
+//        
+//        for (String directions: POSSIBLE_DIRECTIONS) {
+//            Direction nextDirection = new Direction(POSSIBLE_DIRECTIONS[arrayCounter]);
+//            NearestPiece temp = this.nearestPieceSingleVector(rootSquare, nextDirection);
+//            if (temp != null)   
+//                nearestPieceList.add(temp);
+//            arrayCounter++;
+//        }
+//        return nearestPieceList;
+//    }
+//    
+//    private NearestPiece nearestPieceSingleVector(ChessBoardSquare rootSquare, Direction direction) {
+//        
+//        Map<String, Integer> axisCounters = new HashMap<>();
+//        axisCounters.put("x", rootSquare.getXAxisLocation());
+//        axisCounters.put("y", rootSquare.getYAxisLocation());
+//        int xAxisMax = direction.getMaxXAxisLocation();
+//        int yAxisMax = direction.getMaxYAxisLocation();
+//        
+//        if(axisCounters.get("x") == xAxisMax || axisCounters.get("y") == yAxisMax)
+//            return null;
+//        
+//        boolean edgeReached = false;
+//        int distance = 0;
+//        
+//        while (!edgeReached) {
+//            
+//            axisCounters = ChessBoard.incrementAxisCounters(direction, axisCounters);
+//            distance++;
+//            
+//            if(!board[axisCounters.get("y")][axisCounters.get("x")].isSquareEmpty)
+//                return new NearestPiece(board[axisCounters.get("y")][axisCounters.get("x")].currentPiece, distance, direction);
+//            else if (axisCounters.get("y") == yAxisMax || axisCounters.get("x") == xAxisMax)
+//                return null;
+//        }
+//        return null;
+//    }
     
     public ArrayList<ChessBoardSquare> surroundingSquaresAllVectors(ChessBoardSquare rootSquare) {
         

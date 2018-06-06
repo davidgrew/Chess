@@ -44,7 +44,7 @@ public class ChessMove {
         
         King currentPlayerKing = currentPlayer.getPieceColour().equals("white") ? (King) currentPlayerPieces.get("WKA4") : (King) currentPlayerPieces.get("BKH5");
        
-        if (currentPlayerKing.KingInCheck(board)) {
+        if (currentPlayerKing.KingInCheck(board, oppositionPieces)) {
             move.reverse();
             return false;
         }   
@@ -53,7 +53,7 @@ public class ChessMove {
     
     public Boolean winningMove() {
         King oppositionKing = currentPlayer.getPieceColour().equals("white") ? (King) oppositionPieces.get("BKH5") : (King) oppositionPieces.get("WKA4");
-        return oppositionKing.KingInCheckmate(board, oppositionPieces);
+        return oppositionKing.KingInCheckmate(board, currentPlayerPieces, oppositionPieces);
     }
     
 }

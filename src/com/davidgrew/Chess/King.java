@@ -7,8 +7,6 @@ package com.davidgrew.Chess;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,43 +32,47 @@ public class King extends ChessPiece {
         this.addUniqueName(this.shortName, currentSquare.getSquareName());
     }
     
-//    @Override
-//    public Boolean isMoveValid(ChessBoard board, Movement newMovement) {
-//    
-//        return newMovement.getMovementDistance() == 1;
-//    }
+    @Override
+    public Boolean isMoveValid(ChessBoard board, Movement newMovement) {
     
-    public Boolean KingInCheck(ChessBoard board) {
+        return newMovement.getMovementDistance() == 1;
+    }
+    
+    public Boolean KingInCheck(ChessBoard board, Map<String, ChessPiece> oppositionPieces) {
         check.refreshCheckStatus();
-        ArrayList<NearestPiece> nearestPieces = board.nearestPiecesAllVectors(currentSquare);
-        for (NearestPiece piece: nearestPieces) {
-            if (!piece.getPiece().getChessPieceColour().equals(this.colour)) {
-                String directionType = piece.getDirection().getDirectionType();
-                String direction = piece.getDirection().getDirection();
-                String pieceType = piece.getPiece().getChessPieceType();
-                int pieceDistance = piece.getDistance();
-
-                if ((directionType.equals("horizontal") || directionType.equals("vertical")) && (pieceType.equals("Castle") || pieceType.equals("Queen") || (pieceType.equals("King") && pieceDistance == 1)))
-                    check.addPieceCausingCheck(piece.getPiece());
-                else if (directionType.equals("diagonal")) {
-                    if (pieceType.equals("Queen") || pieceType.equals("Bishop") || (pieceType.equals("King") || pieceDistance == 1))
-                        check.addPieceCausingCheck(piece.getPiece());
-                    else if (pieceType.equals("Pawn") && pieceDistance == 1){
-                        if (piece.getPiece().colour.equals("white") && (direction.equals("leftup") || direction.equals("rightup")))
-                           check.addPieceCausingCheck(piece.getPiece());
-                        else if (piece.getPiece().colour.equals("black") && (direction.equals("leftdown") || direction.equals("rightdown")))
-                           check.addPieceCausingCheck(piece.getPiece());
-                    }
-                }              
-            }
+        for (ChessPiece piece : oppositionPieces.values()) {
+                if (piece.isMoveValid(board, new Movement(piece.getCurrentSquare(), this.currentSquare))) 
+                    check.addPieceCausingCheck(piece);
         }
-        System.out.println(check.getCheckStatus());
+        
+//        ArrayList<NearestPiece> nearestPieces = board.nearestPiecesAllVectors(currentSquare);
+//        for (NearestPiece piece: nearestPieces) {
+//            if (!piece.getPiece().getChessPieceColour().equals(this.colour)) {
+//                String directionType = piece.getDirection().getDirectionType();
+//                String direction = piece.getDirection().getDirection();
+//                String pieceType = piece.getPiece().getChessPieceType();
+//                int pieceDistance = piece.getDistance();
+//
+//                if ((directionType.equals("horizontal") || directionType.equals("vertical")) && (pieceType.equals("Castle") || pieceType.equals("Queen") || (pieceType.equals("King") && pieceDistance == 1)))
+//                    check.addPieceCausingCheck(piece.getPiece());
+//                else if (directionType.equals("diagonal")) {
+//                    if (pieceType.equals("Queen") || pieceType.equals("Bishop") || (pieceType.equals("King") || pieceDistance == 1))
+//                        check.addPieceCausingCheck(piece.getPiece());
+//                    else if (pieceType.equals("Pawn") && pieceDistance == 1){
+//                        if (piece.getPiece().colour.equals("white") && (direction.equals("leftup") || direction.equals("rightup")))
+//                           check.addPieceCausingCheck(piece.getPiece());
+//                        else if (piece.getPiece().colour.equals("black") && (direction.equals("leftdown") || direction.equals("rightdown")))
+//                           check.addPieceCausingCheck(piece.getPiece());
+//                    }
+//                }              
+//            }
+//        }
         return check.getCheckStatus();
     }
 
-    public Boolean KingInCheckmate(ChessBoard board, Map<String, ChessPiece> activePieces) {
+    public Boolean KingInCheckmate(ChessBoard board, Map<String, ChessPiece> ownPieces, Map<String, ChessPiece> oppositionPieces) {
         
-        if (!this.KingInCheck(board))
+        if (!this.KingInCheck(board, oppositionPieces))
             return false;
         
         //check if there are moves available to the king by moving to adjacent squares
@@ -80,7 +82,7 @@ public class King extends ChessPiece {
             if (nextSquare.isSquareEmpty || !nextSquare.currentPiece.colour.equals(this.colour)) {
                 MoveExecution move = new MoveExecution(this.currentSquare, nextSquare);
                 move.execute();
-                Boolean inCheck = this.KingInCheck(board);
+                Boolean inCheck = this.KingInCheck(board, oppositionPieces);
                 move.reverse();
                 if (!inCheck)
                     return false;
@@ -108,7 +110,7 @@ public class King extends ChessPiece {
             squaresToIntercept.addAll(squaresToCheck[0]);
         
         for (ChessBoardSquare square : squaresToIntercept) {
-            for (ChessPiece piece : activePieces.values()) {
+            for (ChessPiece piece : ownPieces.values()) {
                 if (piece.isMoveValid(board, new Movement(piece.getCurrentSquare(), square))) 
                     return false;
             }
