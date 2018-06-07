@@ -34,29 +34,24 @@ public class AppMain {
 
         do {
             Player currentPlayer = game.getPlayersTurn();
-            System.out.println("\n"+game.getPlayersTurn().getPlayerName()+"'s turn\n");
+            System.out.println("\n"+currentPlayer.getPlayerName()+"'s turn\n");
 
             ChessBoardSquare currentSquare = new AppMain().getSquareFromUser(board, "Select piece to move (e.g. C4)");
             ChessBoardSquare futureSquare = new AppMain().getSquareFromUser(board, "Select square to move to (e.g. D4)");
 
-            if(currentSquare == null || futureSquare == null)
-                break;
-            else {
-                Player oppositionPlayer = currentPlayer == player1 ? player2 : player1;
-                Move currentMove = new Move(board, currentSquare, futureSquare, currentPlayer, oppositionPlayer);
-                if (currentMove.executeMove()) {
-                    if (currentMove.winningMove()) {
-                        game.updateWinner();
-                    }
-                    game.updatePlayersTurn();
-                    board.printChessBoard();
+            Player oppositionPlayer = currentPlayer == player1 ? player2 : player1;
+            Move currentMove = new Move(board, currentSquare, futureSquare, currentPlayer, oppositionPlayer);
+            try {
+                currentMove.executeMove();
+                if (currentMove.winningMove()) {
+                    game.updateWinner();
                 }
-                else {
-                    System.out.println("move not valid");
-                }
+                game.updatePlayersTurn();
+                board.printChessBoard();
+            } catch (IllegalArgumentException e) {
+                System.out.println("\ninvalid move - " + e.getMessage());
             }
         } while(game.getWinner() == null);  
-        
         System.out.println(game.getWinner().getPlayerName() + " wins!");
     }
 
@@ -78,18 +73,14 @@ public class AppMain {
     
     private ChessBoardSquare getSquareFromUser(ChessBoard board, String textToPrint) {
         System.out.println(textToPrint);
-        Boolean validSquare;
         
-        do {
+        while (true) {
             String squareName = new Scanner(System.in).next();
-            validSquare = board.isSquareValid(squareName);
-            if (validSquare)
+            if (board.isSquareValid(squareName))
                 return board.getSquare(squareName);
             else
                 System.out.println("not a valid square");
-        } while (!validSquare);
-        
-        return null;
+        } 
     }
     
 }

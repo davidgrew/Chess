@@ -31,13 +31,14 @@ public class Move {
         this.oppositionPieces = oppositionPlayer.getActivePieces();
     }
     
-    public Boolean executeMove() {
+    public void executeMove() throws IllegalArgumentException {
         
-        if(currentSquare.isSquareEmpty || !currentSquare.currentPiece.colour.equals(currentPlayer.getPieceColour()) || (!futureSquare.isSquareEmpty && futureSquare.currentPiece.colour.equals(currentPlayer.getPieceColour())))
-            return false; 
-        
-        if (!currentSquare.currentPiece.isMoveValid(board, movement))
-            return false;
+        if(currentSquare.isSquareEmpty || !currentSquare.currentPiece.colour.equals(currentPlayer.getPieceColour()))
+            throw new IllegalArgumentException("cannot move from this square"); 
+        else if (!futureSquare.isSquareEmpty && futureSquare.currentPiece.colour.equals(currentPlayer.getPieceColour()))
+            throw new IllegalArgumentException("cannot move to this square");
+        else if (!currentSquare.currentPiece.isMoveValid(board, movement))
+            throw new IllegalArgumentException("illegal movement for this piece");
         
         MoveExecution move = new MoveExecution(currentSquare, futureSquare, oppositionPieces);
         move.execute();
@@ -46,9 +47,8 @@ public class Move {
        
         if (currentPlayerKing.KingInCheck(board, oppositionPieces)) {
             move.reverse();
-            return false;
+            throw new IllegalArgumentException("cannot move into check");
         }   
-        return true;
     }
     
     public Boolean winningMove() {
