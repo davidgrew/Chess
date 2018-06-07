@@ -5,8 +5,6 @@
  */
 package com.davidgrew.Chess;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -22,20 +20,20 @@ public class AppMain {
         
         System.out.print("\033[H\033[2J");
 
-        ChessPlayer player1 = new AppMain().getPlayerFromUser(1);
-        ChessPlayer player2 = new AppMain().getPlayerFromUser(2);
+        Player player1 = new AppMain().getPlayerFromUser(1);
+        Player player2 = new AppMain().getPlayerFromUser(2);
         Boolean playerOneWhite = new AppMain().getPieceColourFromUser().equalsIgnoreCase("white");
         player1.updatePieceColour(playerOneWhite ? "white" : "black");
         player2.updatePieceColour(playerOneWhite ? "black" : "white");
 
-        ChessGame game = new ChessGame(player1, player2);
+        Game game = new Game(player1, player2);
         
         ChessBoard board = new ChessBoard();
         board.initialiseChessBoard(player1, player2);
         board.printChessBoard();
 
         do {
-            ChessPlayer currentPlayer = game.getPlayersTurn();
+            Player currentPlayer = game.getPlayersTurn();
             System.out.println("\n"+game.getPlayersTurn().getPlayerName()+"'s turn\n");
 
             ChessBoardSquare currentSquare = new AppMain().getSquareFromUser(board, "Select piece to move (e.g. C4)");
@@ -44,8 +42,8 @@ public class AppMain {
             if(currentSquare == null || futureSquare == null)
                 break;
             else {
-                ChessPlayer oppositionPlayer = currentPlayer == player1 ? player2 : player1;
-                ChessMove currentMove = new ChessMove(board, currentSquare, futureSquare, currentPlayer, oppositionPlayer);
+                Player oppositionPlayer = currentPlayer == player1 ? player2 : player1;
+                Move currentMove = new Move(board, currentSquare, futureSquare, currentPlayer, oppositionPlayer);
                 if (currentMove.executeMove()) {
                     if (currentMove.winningMove()) {
                         game.updateWinner();
@@ -62,11 +60,11 @@ public class AppMain {
         System.out.println(game.getWinner().getPlayerName() + " wins!");
     }
 
-    private ChessPlayer getPlayerFromUser(int playerNumber) {
+    private Player getPlayerFromUser(int playerNumber) {
         
         System.out.println("Player "+playerNumber+"'s name please");
         String playerName = new Scanner(System.in).next();
-        return new ChessPlayer(playerName);
+        return new Player(playerName);
     }
     
     private String getPieceColourFromUser() {

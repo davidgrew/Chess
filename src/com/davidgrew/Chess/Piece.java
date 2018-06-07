@@ -9,7 +9,7 @@ package com.davidgrew.Chess;
  *
  * @author David
  */
-public class ChessPiece {
+public class Piece {
     String chessPieceType;
     String shortName;
     String uniqueName;

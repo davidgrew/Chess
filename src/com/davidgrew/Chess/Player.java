@@ -12,23 +12,23 @@ import java.util.Map;
  *
  * @author davidgrew
  */
-public class ChessPlayer {
+public class Player {
     
     private String name;
     private Boolean pieceColourIsWhite;
-    private Map<String, ChessPiece> activePieces = new HashMap<>();
+    private Map<String, Piece> activePieces = new HashMap<>();
     
-    public ChessPlayer() {
+    public Player() {
         name = null;
         pieceColourIsWhite = true;
     }
     
-    public ChessPlayer(String name) {
+    public Player(String name) {
         this.name = name;
         this.pieceColourIsWhite = true;
     }
     
-    public ChessPlayer(String name, String colour) {
+    public Player(String name, String colour) {
         this.name = name;
         if (colour.equals("white"))
             pieceColourIsWhite = true;
@@ -58,7 +58,7 @@ public class ChessPlayer {
             this.pieceColourIsWhite = false;
     }
     
-    public Map<String, ChessPiece> getActivePieces() {
+    public Map<String, Piece> getActivePieces() {
         return this.activePieces;
     }
 }

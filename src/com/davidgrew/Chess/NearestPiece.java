@@ -11,17 +11,17 @@ package com.davidgrew.Chess;
  */
 public class NearestPiece {
     
-    private ChessPiece piece;
+    private Piece piece;
     private int distance;
     private Direction direction;
     
-    public NearestPiece(ChessPiece piece, int distance, Direction direction) {
+    public NearestPiece(Piece piece, int distance, Direction direction) {
         this.piece = piece;
         this.distance = distance;
         this.direction = direction;
     }
     
-    public ChessPiece getPiece() {
+    public Piece getPiece() {
         return this.piece;
     }
     

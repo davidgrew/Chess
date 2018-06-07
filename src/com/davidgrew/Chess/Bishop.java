@@ -9,7 +9,7 @@ package com.davidgrew.Chess;
  *
  * @author David
  */
-public class Bishop extends ChessPiece {
+public class Bishop extends Piece {
     
     public Bishop(String colour, ChessBoardSquare currentSquare) {
         this.chessPieceType = "Bishop";

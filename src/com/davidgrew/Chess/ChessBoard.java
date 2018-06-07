@@ -26,14 +26,14 @@ public class ChessBoard {
         board = new ChessBoardSquare[CHESS_BOARD_WIDTH][CHESS_BOARD_WIDTH];
     }
     
-    public void initialiseChessBoard(ChessPlayer player1, ChessPlayer player2) {
+    public void initialiseChessBoard(Player player1, Player player2) {
             
             String player1Colour = player1.getPieceColour();
             
             for(int i = 0; i < CHESS_BOARD_WIDTH; i++) {
             for(int j = 0; j < CHESS_BOARD_WIDTH; j++) {
                 this.board[i][j] = new ChessBoardSquare();
-                ChessPiece temp = this.board[i][j].initialiseSquare(i,j);
+                Piece temp = this.board[i][j].initialiseSquare(i,j);
                 if (temp != null)  {
                     if (temp.getChessPieceColour().equals(player1Colour))
                         player1.getActivePieces().put(temp.getUniqueName(), temp);
@@ -44,7 +44,7 @@ public class ChessBoard {
         }
     }
     
-    public void initialiseChessBoard(ChessPiece piece) {
+    public void initialiseChessBoard(Piece piece) {
     
             for(int i = 0; i < CHESS_BOARD_WIDTH; i++) {
             for(int j = 0; j < CHESS_BOARD_WIDTH; j++) {
@@ -182,7 +182,7 @@ public class ChessBoard {
         int xAxisMax = direction.getMaxXAxisLocation();
         int yAxisMax = direction.getMaxYAxisLocation();
         
-        if(axisCounters.get("x") != xAxisMax || axisCounters.get("y") != yAxisMax) {
+        if(axisCounters.get("x") != xAxisMax && axisCounters.get("y") != yAxisMax) {
             axisCounters = ChessBoard.incrementAxisCounters(direction, axisCounters);
             return board[axisCounters.get("y")][axisCounters.get("x")];
         }

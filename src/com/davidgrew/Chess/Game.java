@@ -9,14 +9,14 @@ package com.davidgrew.Chess;
  *
  * @author davidgrew
  */
-public class ChessGame {
+public class Game {
     
-    private ChessPlayer player1;
-    private ChessPlayer player2;
+    private Player player1;
+    private Player player2;
     private Boolean isPlayerOnesTurn;
-    private ChessPlayer winner = null;
+    private Player winner = null;
     
-    public ChessGame(ChessPlayer player1, ChessPlayer player2) {
+    public Game(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
         
@@ -30,7 +30,7 @@ public class ChessGame {
         this.isPlayerOnesTurn = !this.isPlayerOnesTurn;
     }
     
-    public ChessPlayer getPlayersTurn() {
+    public Player getPlayersTurn() {
         if (this.isPlayerOnesTurn)
             return this.player1;
         else
@@ -44,7 +44,7 @@ public class ChessGame {
             winner = player2;
     }
     
-    public ChessPlayer getWinner() {
+    public Player getWinner() {
         return winner;
     }
 }

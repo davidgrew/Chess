@@ -15,11 +15,11 @@ public class MoveExecution {
     
     private final ChessBoardSquare initialSquare;
     private final ChessBoardSquare futureSquare;
-    private final ChessPiece initialSquareOriginalPiece;
-    private final ChessPiece futureSquareOriginalPiece;
-    private final Map<String, ChessPiece> activePieces;
+    private final Piece initialSquareOriginalPiece;
+    private final Piece futureSquareOriginalPiece;
+    private final Map<String, Piece> activePieces;
     
-    public MoveExecution(ChessBoardSquare initialSquare, ChessBoardSquare futureSquare, Map<String, ChessPiece> activePieces) {
+    public MoveExecution(ChessBoardSquare initialSquare, ChessBoardSquare futureSquare, Map<String, Piece> activePieces) {
         this.initialSquare = initialSquare;
         this.futureSquare = futureSquare;
         this.initialSquareOriginalPiece = initialSquare.currentPiece;

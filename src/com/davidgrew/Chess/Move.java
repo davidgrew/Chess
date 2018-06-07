@@ -11,17 +11,17 @@ import java.util.Map;
  *
  * @author davidgrew
  */
-public class ChessMove {
+public class Move {
     
-    private Movement movement;
-    private ChessBoard board;
-    private ChessBoardSquare currentSquare;
-    private ChessBoardSquare futureSquare;
-    private ChessPlayer currentPlayer;
-    private Map<String, ChessPiece> currentPlayerPieces;
-    private Map<String, ChessPiece> oppositionPieces;
+    private final Movement movement;
+    private final ChessBoard board;
+    private final ChessBoardSquare currentSquare;
+    private final ChessBoardSquare futureSquare;
+    private final Player currentPlayer;
+    private final Map<String, Piece> currentPlayerPieces;
+    private final Map<String, Piece> oppositionPieces;
     
-    public ChessMove(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, ChessPlayer currentPlayer, ChessPlayer oppositionPlayer) {
+    public Move(ChessBoard board, ChessBoardSquare currentSquare, ChessBoardSquare futureSquare, Player currentPlayer, Player oppositionPlayer) {
         this.movement = new Movement(currentSquare, futureSquare);
         this.currentSquare = currentSquare;
         this.futureSquare = futureSquare;
@@ -53,7 +53,7 @@ public class ChessMove {
     
     public Boolean winningMove() {
         King oppositionKing = currentPlayer.getPieceColour().equals("white") ? (King) oppositionPieces.get("BKH5") : (King) oppositionPieces.get("WKA4");
-        return oppositionKing.KingInCheckmate(board, currentPlayerPieces, oppositionPieces);
+        return oppositionKing.KingInCheckmate(board, oppositionPieces, currentPlayerPieces);
     }
     
 }

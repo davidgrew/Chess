@@ -14,9 +14,9 @@ public class ChessBoardSquare {
     private int xAxisLocation;
     private int yAxisLocation;
     public Boolean isSquareEmpty;
-    public ChessPiece currentPiece;
+    public Piece currentPiece;
     
-    public ChessPiece initialiseSquare(int y, int x) {
+    public Piece initialiseSquare(int y, int x) {
         
         this.xAxisLocation = x;
         this.yAxisLocation = y;
@@ -72,7 +72,7 @@ public class ChessBoardSquare {
         return this.currentPiece;
     }
     
-    void initialiseSquare(int y, int x, ChessPiece piece) {
+    void initialiseSquare(int y, int x, Piece piece) {
         
         this.xAxisLocation = x;
         this.yAxisLocation = y;

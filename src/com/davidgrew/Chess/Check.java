@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Check {
     
     private Boolean checkStatus;
-    private ArrayList<ChessPiece> piecesCausingCheck = new ArrayList<>();
+    private ArrayList<Piece> piecesCausingCheck = new ArrayList<>();
     
     public Check() {
         this.checkStatus = false;
@@ -32,13 +32,13 @@ public class Check {
         }
     }
     
-    public void addPieceCausingCheck(ChessPiece newPiece) {
+    public void addPieceCausingCheck(Piece newPiece) {
         if (this.checkStatus == false)
             this.checkStatus = true;
         piecesCausingCheck.add(newPiece);
     }
     
-    public ArrayList<ChessPiece> getPiecesCausingCheck() {
+    public ArrayList<Piece> getPiecesCausingCheck() {
         return this.piecesCausingCheck;
     }
     

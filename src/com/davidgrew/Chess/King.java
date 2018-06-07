@@ -14,7 +14,7 @@ import java.util.Set;
  *
  * @author David
  */
-public class King extends ChessPiece {
+public class King extends Piece {
     
     public Check check = new Check();
     
@@ -38,9 +38,9 @@ public class King extends ChessPiece {
         return newMovement.getMovementDistance() == 1;
     }
     
-    public Boolean KingInCheck(ChessBoard board, Map<String, ChessPiece> oppositionPieces) {
+    public Boolean KingInCheck(ChessBoard board, Map<String, Piece> oppositionPieces) {
         check.refreshCheckStatus();
-        for (ChessPiece piece : oppositionPieces.values()) {
+        for (Piece piece : oppositionPieces.values()) {
                 if (piece.isMoveValid(board, new Movement(piece.getCurrentSquare(), this.currentSquare))) 
                     check.addPieceCausingCheck(piece);
         }
@@ -70,7 +70,7 @@ public class King extends ChessPiece {
         return check.getCheckStatus();
     }
 
-    public Boolean KingInCheckmate(ChessBoard board, Map<String, ChessPiece> ownPieces, Map<String, ChessPiece> oppositionPieces) {
+    public Boolean KingInCheckmate(ChessBoard board, Map<String, Piece> ownPieces, Map<String, Piece> oppositionPieces) {
         
         if (!this.KingInCheck(board, oppositionPieces))
             return false;
@@ -94,7 +94,7 @@ public class King extends ChessPiece {
         ArrayList<ChessBoardSquare>[] squaresToCheck = new ArrayList[numberOfPiecesCausingCheck];
         Set<ChessBoardSquare> squaresToIntercept = new HashSet<>();
         
-        for (ChessPiece piece : check.getPiecesCausingCheck()) {
+        for (Piece piece : check.getPiecesCausingCheck()) {
             squaresToCheck[counter] = board.allSquaresBetweenTwoPoints(this.currentSquare, piece.getCurrentSquare());
         }
         
@@ -110,7 +110,7 @@ public class King extends ChessPiece {
             squaresToIntercept.addAll(squaresToCheck[0]);
         
         for (ChessBoardSquare square : squaresToIntercept) {
-            for (ChessPiece piece : ownPieces.values()) {
+            for (Piece piece : ownPieces.values()) {
                 if (piece.isMoveValid(board, new Movement(piece.getCurrentSquare(), square))) 
                     return false;
             }
