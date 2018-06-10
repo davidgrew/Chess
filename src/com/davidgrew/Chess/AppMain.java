@@ -31,7 +31,7 @@ public class AppMain {
         ChessBoard board = new ChessBoard();
         board.initialiseChessBoard(player1, player2);
         board.printChessBoard();
-
+        
         do {
             Player currentPlayer = game.getPlayersTurn();
             System.out.println("\n"+currentPlayer.getPlayerName()+"'s turn\n");
@@ -49,6 +49,7 @@ public class AppMain {
                 game.updatePlayersTurn();
                 board.printChessBoard();
             } catch (IllegalArgumentException e) {
+                board.printChessBoard();
                 System.out.println("\ninvalid move - " + e.getMessage());
             }
         } while(game.getWinner() == null);  

@@ -28,13 +28,15 @@ public class Queen extends Piece {
     @Override
     public Boolean isMoveValid(ChessBoard board, Movement newMovement) {
     
-        String movementType = newMovement.getMovementType();
-        
-        if(movementType.equals("diagonal") || movementType.equals("horizontal") || movementType.equals("vertical"))
-            return board.isPathClear(newMovement);            
-        else
-            return false;
+        return acceptableMovement(newMovement) && board.isPathClear(newMovement);
     }
+
+    private static Boolean acceptableMovement(Movement newMovement) {
+        
+        String movementType = newMovement.getMovementType();
+        return (movementType.equals("diagonal") || movementType.equals("horizontal") || movementType.equals("vertical"));
+    }
+
 }
     
         
