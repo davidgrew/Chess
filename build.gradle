@@ -11,14 +11,6 @@ plugins {
 	id "org.sonarqube" version "2.6"
 }
 
-sourceSets {
-	main {
-		java {
-			srcDir 'src'
-		}
-	}
-}
-
 mainClassName = "com.davidgrew.Chess.AppMain"
 
 jar {
