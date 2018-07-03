@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.davidgrew.Chess;
+package com.davidgrew.chess;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,8 +16,8 @@ import java.util.Map;
 
 public class ChessBoard {
     public ChessBoardSquare[][] board;
-    private char[] leftEdgeIndex = {'A','B','C','D','E','F','G','H'};
-    private int[] bottomEdgeIndex = {1,2,3,4,5,6,7,8};      
+    private final char[] leftEdgeIndex = {'A','B','C','D','E','F','G','H'};
+    private final int[] bottomEdgeIndex = {1,2,3,4,5,6,7,8};      
     public static final int CHESS_BOARD_WIDTH = 8;
     public static final String[] POSSIBLE_DIRECTIONS = new String[] {"left", "leftdown", "leftup", "up", "down", "right", "rightup", "rightdown"} ;
     
@@ -28,14 +28,14 @@ public class ChessBoard {
     
     public void initialiseChessBoard(Player player1, Player player2) {
             
-            String player1Colour = player1.getPieceColour();
+            PieceColour player1Colour = player1.getPieceColour();
             
             for(int i = 0; i < CHESS_BOARD_WIDTH; i++) {
             for(int j = 0; j < CHESS_BOARD_WIDTH; j++) {
                 this.board[i][j] = new ChessBoardSquare();
                 Piece temp = this.board[i][j].initialiseSquare(i,j);
                 if (temp != null)  {
-                    if (temp.getChessPieceColour().equals(player1Colour))
+                    if (temp.getChessPieceColour() == player1Colour)
                         player1.getActivePieces().put(temp.getUniqueName(), temp);
                     else
                         player2.getActivePieces().put(temp.getUniqueName(), temp);
@@ -44,12 +44,12 @@ public class ChessBoard {
         }
     }
     
-    public void initialiseChessBoard(Piece piece) {
+    public void initialiseChessBoard(String pieceType) {
     
             for(int i = 0; i < CHESS_BOARD_WIDTH; i++) {
             for(int j = 0; j < CHESS_BOARD_WIDTH; j++) {
                 this.board[i][j] = new ChessBoardSquare();
-                this.board[i][j].initialiseSquare(i,j,piece);
+                this.board[i][j].initialiseSquare(i,j,pieceType);
             }
         }
     }

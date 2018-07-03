@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.davidgrew.Chess;
+package com.davidgrew.chess;
+
+import java.lang.reflect.Constructor;
 
 /**
  *
@@ -26,44 +28,44 @@ public class ChessBoardSquare {
         
         if((y == 0 || y == 7) && (x == 0 || x == 7)) {
             if(y == 0)
-                currentPiece = new Castle("white", this);
+                currentPiece = new Castle(PieceColour.WHITE, this);
             else
-                currentPiece = new Castle("black", this);
+                currentPiece = new Castle(PieceColour.BLACK, this);
             isSquareEmpty = false;
         }
         else if((y == 0 || y == 7) && (x == 1 || x == 6)) {
             if(y == 0)
-                currentPiece = new Horse("white", this);
+                currentPiece = new Horse(PieceColour.WHITE, this);
             else
-                currentPiece = new Horse("black", this);
+                currentPiece = new Horse(PieceColour.BLACK, this);
             isSquareEmpty = false;
         }
         else if((y == 0 || y == 7) && (x == 2 || x == 5)) {
             if(y == 0)
-                currentPiece = new Bishop("white", this);
+                currentPiece = new Bishop(PieceColour.WHITE, this);
             else
-                currentPiece = new Bishop("black", this);
+                currentPiece = new Bishop(PieceColour.BLACK, this);
             isSquareEmpty = false;
         }
         else if((y == 0 || y == 7) && x == 3) {
             if(y == 0)
-                currentPiece = new King("white", this);
+                currentPiece = new King(PieceColour.WHITE, this);
             else
-                currentPiece = new Queen("black", this);
+                currentPiece = new Queen(PieceColour.BLACK, this);
             isSquareEmpty = false;
         }
         else if((y == 0 || y == 7) && x == 4) {
             if(y == 0)
-                currentPiece = new Queen("white", this);
+                currentPiece = new Queen(PieceColour.WHITE, this);
             else
-                currentPiece = new King("black", this);
+                currentPiece = new King(PieceColour.BLACK, this);
             isSquareEmpty = false;
         }
         else if (y == 1 || y == 6) {
             if(y == 1)
-                currentPiece = new Pawn("white", this);
+                currentPiece = new Pawn(PieceColour.WHITE, this);
             else
-                currentPiece = new Pawn("black", this);
+                currentPiece = new Pawn(PieceColour.BLACK, this);
             isSquareEmpty = false;
         }
         else {
@@ -72,7 +74,7 @@ public class ChessBoardSquare {
         return this.currentPiece;
     }
     
-    void initialiseSquare(int y, int x, Piece piece) {
+    void initialiseSquare(int y, int x, String pieceType) {
         
         this.xAxisLocation = x;
         this.yAxisLocation = y;
@@ -81,8 +83,12 @@ public class ChessBoardSquare {
         squareName = yAsChar.toString() + xAsChar.toString();
         
         if(x == 3 && y == 3){
-            this.currentPiece = piece;
-            this.isSquareEmpty = false;
+            try {
+                Class<?> pieceToTest = Class.forName("com.davidgrew.chess."+pieceType);
+                Constructor pieceConstructor = pieceToTest.getConstructor(String.class, ChessBoardSquare.class);
+                this.currentPiece = (Piece) pieceConstructor.newInstance("white", this);
+                this.isSquareEmpty = false;
+            } catch (Exception e) {}
         }
         else
             this.isSquareEmpty = true;

@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.davidgrew.Chess;
+package com.davidgrew.chess;
 
 /**
  *
  * @author davidgrew
  */
-public class PieceTest {
+public class PieceValidMoveTest {
     
+//    @Test
+//    public void queenValidMovesTest() {
+//        
+//    }
 }

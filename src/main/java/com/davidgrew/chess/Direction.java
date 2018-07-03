@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.davidgrew.Chess;
+package com.davidgrew.chess;
 
 /**
  *
@@ -11,15 +11,15 @@ package com.davidgrew.Chess;
  */
 public class Direction {
     
-    private String directionType;
+    private final String directionType;
     private String direction;
-    private int maxXAxisLocation;
-    private int maxYAxisLocation;
+    private final int maxXAxisLocation;
+    private final int maxYAxisLocation;
     
     Direction(String direction) {
-        this.direction = direction;
+        this.direction = direction.toLowerCase();
         
-        switch (direction) {
+        switch (this.direction) {
             case "left":
                 this.maxXAxisLocation = 0;
                 this.maxYAxisLocation = 99;
@@ -45,11 +45,6 @@ public class Direction {
                 this.maxYAxisLocation = 7;
                 this.directionType = "vertical";
                 break;
-            case "right":
-                this.maxXAxisLocation = 7;
-                this.maxYAxisLocation = 99;
-                this.directionType = "horizontal";
-                break;
             case "rightdown":
                 this.maxXAxisLocation = 7;
                 this.maxYAxisLocation = 0;
@@ -60,7 +55,12 @@ public class Direction {
                 this.maxYAxisLocation = 7;
                 this.directionType = "diagonal";
                 break;
-            case "undefined":
+            case "right":
+                this.maxXAxisLocation = 7;
+                this.maxYAxisLocation = 99;
+                this.directionType = "horizontal";
+                break;
+            default:
                 this.maxXAxisLocation = 99;
                 this.maxYAxisLocation = 99;
                 this.directionType = "undefined";

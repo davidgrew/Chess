@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.davidgrew.Chess;
+package com.davidgrew.chess;
 
 import java.util.Map;
 
@@ -17,6 +17,8 @@ public class Move {
     private final ChessBoard board;
     private final ChessBoardSquare currentSquare;
     private final ChessBoardSquare futureSquare;
+    private final Piece currentSquareOriginalPiece;
+    private final Piece futureSquareOriginalPiece;
     private final Player currentPlayer;
     private final Map<String, Piece> currentPlayerPieces;
     private final Map<String, Piece> oppositionPieces;
@@ -29,9 +31,11 @@ public class Move {
         this.board = board;
         this.currentPlayerPieces = currentPlayer.getActivePieces();
         this.oppositionPieces = oppositionPlayer.getActivePieces();
+        this.currentSquareOriginalPiece = currentSquare.currentPiece;
+        this.futureSquareOriginalPiece = futureSquare.currentPiece;
     }
     
-    public void executeMove() throws IllegalArgumentException {
+    public void attemptMove() throws IllegalArgumentException {
         
         if(currentSquare.isSquareEmpty || !currentSquare.currentPiece.colour.equals(currentPlayer.getPieceColour()))
             throw new IllegalArgumentException("cannot move from this square"); 
@@ -40,20 +44,41 @@ public class Move {
         else if (!currentSquare.currentPiece.isMoveValid(board, movement))
             throw new IllegalArgumentException("illegal movement for this piece");
         
-        MoveExecution move = new MoveExecution(currentSquare, futureSquare, oppositionPieces);
-        move.execute();
+        this.executeMove();
         
-        King currentPlayerKing = currentPlayer.getPieceColour().equals("white") ? (King) currentPlayerPieces.get("WKA4") : (King) currentPlayerPieces.get("BKH5");
+        King currentPlayerKing = currentPlayer.getPieceColour() == PieceColour.WHITE ? (King) currentPlayerPieces.get("WKA4") : (King) currentPlayerPieces.get("BKH5");
        
         if (currentPlayerKing.KingInCheck(board, oppositionPieces)) {
-            move.reverse();
+            this.reverseMove();
             throw new IllegalArgumentException("cannot move into check");
         }   
     }
     
     public Boolean winningMove() {
-        King oppositionKing = currentPlayer.getPieceColour().equals("white") ? (King) oppositionPieces.get("BKH5") : (King) oppositionPieces.get("WKA4");
+        King oppositionKing = currentPlayer.getPieceColour() == PieceColour.WHITE ? (King) oppositionPieces.get("BKH5") : (King) oppositionPieces.get("WKA4");
         return oppositionKing.KingInCheckmate(board, oppositionPieces, currentPlayerPieces);
     }
+    
+    private void executeMove() {
+        currentSquareOriginalPiece.updateCurrentSquare(futureSquare);
+        futureSquare.currentPiece = currentSquare.currentPiece;
+        currentSquare.currentPiece = null;
+        currentSquare.isSquareEmpty = true;
+        futureSquare.isSquareEmpty = false;
+        if(futureSquareOriginalPiece != null)
+            oppositionPieces.remove(futureSquareOriginalPiece.getUniqueName());
+    }
+    
+    public void reverseMove() {
+        currentSquareOriginalPiece.updateCurrentSquare(currentSquare);
+        currentSquare.currentPiece = currentSquareOriginalPiece;
+        futureSquare.currentPiece = futureSquareOriginalPiece;
+        currentSquare.isSquareEmpty = false;
+        futureSquare.isSquareEmpty = futureSquareOriginalPiece == null;
+        if (oppositionPieces != null && futureSquareOriginalPiece != null)
+            oppositionPieces.put(futureSquareOriginalPiece.getUniqueName(), futureSquareOriginalPiece);
+    }
+    
+    
     
 }

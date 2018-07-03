@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.davidgrew.Chess;
+package com.davidgrew.chess;
 
 /**
  *
@@ -11,18 +11,12 @@ package com.davidgrew.Chess;
  */
 public class Pawn extends Piece {
     
-    public Pawn(String colour, ChessBoardSquare currentSquare) {
-        this.chessPieceType = "Pawn";
-        this.currentSquare = currentSquare;
-        if(colour.equals("black")) {
-            this.colour = "black";
-            this.shortName = "BP";
-        }
-        else {
-            this.colour = "white";
-            this.shortName = "WP";
-        }
-        this.addUniqueName(this.shortName, currentSquare.getSquareName());
+    public Pawn(PieceColour colour) {
+        this.initialisePiece(colour, null);
+    }
+    
+    public Pawn(PieceColour colour, ChessBoardSquare currentSquare) {
+        this.initialisePiece(colour, currentSquare);
     }
     
     @Override
@@ -33,25 +27,25 @@ public class Pawn extends Piece {
         int movementDistance = newMovement.getMovementDistance();
         
         if (movementType.equals("vertical") && movementDistance == 1) {
-            if(colour.equals("white") && movementDirection.equals("up"))
+            if(colour == PieceColour.WHITE && movementDirection.equals("up"))
                 return newMovement.getFutureSquare().isSquareEmpty;
-            else if(colour.equals("black") && movementDirection.equals("down"))
+            else if(colour == PieceColour.BLACK && movementDirection.equals("down"))
                 return newMovement.getFutureSquare().isSquareEmpty;
             else
                 return false;
         }
         else if (movementType.equals("vertical") && movementDistance == 2) {
-            if(colour.equals("white") && newMovement.getCurrentSquare().getYAxisLocation() == 1)
+            if(this.colour == PieceColour.WHITE && newMovement.getCurrentSquare().getYAxisLocation() == 1)
                 return newMovement.getFutureSquare().isSquareEmpty;
-            else if (colour.equals("black") && newMovement.getCurrentSquare().getYAxisLocation() == 6)
+            else if (colour == PieceColour.BLACK && newMovement.getCurrentSquare().getYAxisLocation() == 6)
                 return newMovement.getFutureSquare().isSquareEmpty;
             else
                 return false;
         }
         else if (movementType.equals("diagonal") && movementDistance == 1) {
-            if (colour.equals("white") && (movementDirection.equals("leftup") || movementDirection.equals("rightup")))
+            if (colour == PieceColour.WHITE && (movementDirection.equals("leftup") || movementDirection.equals("rightup")))
                 return !newMovement.getFutureSquare().isSquareEmpty;
-            else if (colour.equals("black") && (movementDirection.equals("leftdown") || movementDirection.equals("rightdown")))
+            else if (colour == PieceColour.BLACK && (movementDirection.equals("leftdown") || movementDirection.equals("rightdown")))
                 return !newMovement.getFutureSquare().isSquareEmpty;
             else
                 return false;

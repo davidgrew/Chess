@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.davidgrew.Chess;
+package com.davidgrew.chess;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,22 +14,16 @@ import java.util.Set;
  *
  * @author David
  */
-public class King extends Piece {
+public class King extends Piece implements ChessPiece {
     
     public Check check = new Check();
     
-    public King(String colour, ChessBoardSquare currentSquare) {
-        this.chessPieceType = "King";
-        this.currentSquare = currentSquare;
-        if(colour.equals("black")) {
-            this.colour = "black";
-            this.shortName = "BK";
-        }
-        else {
-            this.colour = "white";
-            this.shortName = "WK";
-        }
-        this.addUniqueName(this.shortName, currentSquare.getSquareName());
+    public King(PieceColour colour) {
+        this.initialisePiece(colour, null);
+    }
+    
+    public King(PieceColour colour, ChessBoardSquare currentSquare) {
+        this.initialisePiece(colour, currentSquare);
     }
     
     @Override

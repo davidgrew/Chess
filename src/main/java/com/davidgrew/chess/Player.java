@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.davidgrew.Chess;
+package com.davidgrew.chess;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,25 +15,22 @@ import java.util.Map;
 public class Player {
     
     private String name;
-    private Boolean pieceColourIsWhite;
+    private PieceColour colour;
     private Map<String, Piece> activePieces = new HashMap<>();
     
     public Player() {
         name = null;
-        pieceColourIsWhite = true;
+        colour = PieceColour.WHITE;
     }
     
     public Player(String name) {
         this.name = name;
-        this.pieceColourIsWhite = true;
+        colour = PieceColour.WHITE;
     }
     
-    public Player(String name, String colour) {
+    public Player(String name, PieceColour colour) {
         this.name = name;
-        if (colour.equals("white"))
-            pieceColourIsWhite = true;
-        else
-            pieceColourIsWhite = false;
+        this.colour = colour;
     }
     
     public String getPlayerName() {
@@ -44,18 +41,12 @@ public class Player {
         this.name = name;
     }
     
-    public String getPieceColour() {
-        if (this.pieceColourIsWhite)
-            return "white";
-        else
-            return "black"; 
+    public PieceColour getPieceColour() {
+        return this.colour;
     }
     
-    public void updatePieceColour(String pieceColour) {
-        if (pieceColour.equalsIgnoreCase("white"))
-            this.pieceColourIsWhite = true;
-        else
-            this.pieceColourIsWhite = false;
+    public void updatePieceColour(PieceColour colour) {
+        this.colour = colour;
     }
     
     public Map<String, Piece> getActivePieces() {

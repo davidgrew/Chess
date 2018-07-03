@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.davidgrew.Chess;
+package com.davidgrew.chess;
 
 import java.util.Scanner;
 
@@ -23,8 +23,8 @@ public class AppMain {
         Player player1 = new AppMain().getPlayerFromUser(1);
         Player player2 = new AppMain().getPlayerFromUser(2);
         Boolean playerOneWhite = new AppMain().getPieceColourFromUser().equalsIgnoreCase("white");
-        player1.updatePieceColour(playerOneWhite ? "white" : "black");
-        player2.updatePieceColour(playerOneWhite ? "black" : "white");
+        player1.updatePieceColour(playerOneWhite ? PieceColour.WHITE : PieceColour.BLACK);
+        player2.updatePieceColour(playerOneWhite ? PieceColour.BLACK : PieceColour.WHITE);
 
         Game game = new Game(player1, player2);
         
@@ -42,7 +42,7 @@ public class AppMain {
             Player oppositionPlayer = currentPlayer == player1 ? player2 : player1;
             Move currentMove = new Move(board, currentSquare, futureSquare, currentPlayer, oppositionPlayer);
             try {
-                currentMove.executeMove();
+                currentMove.attemptMove();
                 if (currentMove.winningMove()) {
                     game.updateWinner();
                 }

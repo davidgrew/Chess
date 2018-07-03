@@ -3,26 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.davidgrew.Chess;
+package com.davidgrew.chess;
 
 /**
  *
  * @author David
  */
-public class Horse extends Piece {
+public class Horse extends Piece implements ChessPiece {
     
-    public Horse(String colour, ChessBoardSquare currentSquare) {
-        this.chessPieceType = "Horse";
-        this.currentSquare = currentSquare;
-        if(colour.equals("black")) {
-            this.colour = "black";
-            this.shortName = "BH";
-        }
-        else {
-            this.colour = "white";
-            this.shortName = "WH";
-        }
-        this.addUniqueName(this.shortName, currentSquare.getSquareName());
+    public Horse(PieceColour colour) {
+        this.initialisePiece(colour, null);
+    }
+    
+    public Horse(PieceColour colour, ChessBoardSquare currentSquare) {
+        this.initialisePiece(colour, currentSquare);
     }
     
     @Override
